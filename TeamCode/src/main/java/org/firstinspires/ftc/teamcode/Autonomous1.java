@@ -11,19 +11,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Autonomous1 extends LinearOpMode {
 
-    DcMotor RF;
-    DcMotor RB;
-    DcMotor LF;
-    DcMotor LB;
+    DcMotor fr;
+    DcMotor fl;
+    DcMotor br;
+    DcMotor bl;
 
 
     @Override
     public void runOpMode() {
 
-        RF = hardwareMap.dcMotor.get("right front");
-        RB = hardwareMap.dcMotor.get("right back");
-        LF = hardwareMap.dcMotor.get("left front");
-        LB = hardwareMap.dcMotor.get("left back");
+        fr = hardwareMap.dcMotor.get("front right");
+        fl = hardwareMap.dcMotor.get("front left");
+        br = hardwareMap.dcMotor.get("back right");
+        bl = hardwareMap.dcMotor.get("back left");
 
         waitForStart();
 
@@ -41,123 +41,123 @@ public class Autonomous1 extends LinearOpMode {
         float YcountsPerInch = 140;
 
         if (direction == "forward") {
-            RF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            RB.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LB.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            RF.setTargetPosition(Math.round(inches * XcountsPerInch));
-            RB.setTargetPosition(Math.round(inches * XcountsPerInch));
-            LF.setTargetPosition(-Math.round(inches * XcountsPerInch));
-            LB.setTargetPosition(-Math.round(inches * XcountsPerInch));
+            fr.setTargetPosition(Math.round(inches * XcountsPerInch));
+            br.setTargetPosition(Math.round(inches * XcountsPerInch));
+            fl.setTargetPosition(-Math.round(inches * XcountsPerInch));
+            bl.setTargetPosition(-Math.round(inches * XcountsPerInch));
 
-            RF.setPower(speed);
-            RB.setPower(speed);
-            LF.setPower(speed);
-            LB.setPower(speed);
+            fr.setPower(speed);
+            br.setPower(speed);
+            fl.setPower(speed);
+            bl.setPower(speed);
 
-            while (RF.isBusy() && RB.isBusy() && LF.isBusy() && LB.isBusy()) {
+            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
 
             }
-            RF.setPower(0);
-            RB.setPower(0);
-            LF.setPower(0);
-            LB.setPower(0);
+            fr.setPower(0);
+            br.setPower(0);
+            fl.setPower(0);
+            bl.setPower(0);
         }
 
         if (direction == "backward") {
-            RF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            RB.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LB.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            RF.setTargetPosition(-Math.round(inches * XcountsPerInch));
-            RB.setTargetPosition(-Math.round(inches * XcountsPerInch));
-            LF.setTargetPosition(Math.round(inches * XcountsPerInch));
-            LB.setTargetPosition(Math.round(inches * XcountsPerInch));
+            fr.setTargetPosition(-Math.round(inches * XcountsPerInch));
+            br.setTargetPosition(-Math.round(inches * XcountsPerInch));
+            fl.setTargetPosition(Math.round(inches * XcountsPerInch));
+            bl.setTargetPosition(Math.round(inches * XcountsPerInch));
 
-            RF.setPower(speed);
-            RB.setPower(speed);
-            LF.setPower(speed);
-            LB.setPower(speed);
+            fr.setPower(speed);
+            br.setPower(speed);
+            fl.setPower(speed);
+            bl.setPower(speed);
 
-            while (RF.isBusy() && RB.isBusy() && LF.isBusy() && LB.isBusy()) {
+            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
 
             }
-            RF.setPower(0);
-            RB.setPower(0);
-            LF.setPower(0);
-            LB.setPower(0);
+            fr.setPower(0);
+            br.setPower(0);
+            fl.setPower(0);
+            bl.setPower(0);
         }
 
         if (direction == "left") {
-            RF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            RB.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LB.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            RF.setTargetPosition(Math.round(inches * YcountsPerInch));
-            RB.setTargetPosition(-Math.round(inches * YcountsPerInch));
-            LF.setTargetPosition(Math.round(inches * YcountsPerInch));
-            LB.setTargetPosition(-Math.round(inches * YcountsPerInch));
+            fr.setTargetPosition(Math.round(inches * YcountsPerInch));
+            br.setTargetPosition(-Math.round(inches * YcountsPerInch));
+            fl.setTargetPosition(Math.round(inches * YcountsPerInch));
+            bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
 
-            RF.setPower(speed);
-            RB.setPower(speed);
-            LF.setPower(speed);
-            LB.setPower(speed);
+            fr.setPower(speed);
+            br.setPower(speed);
+            fl.setPower(speed);
+            bl.setPower(speed);
 
-            while (RF.isBusy() && RB.isBusy() && LF.isBusy() && LB.isBusy()) {
+            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
 
             }
-            RF.setPower(0);
-            RB.setPower(0);
-            LF.setPower(0);
-            LB.setPower(0);
+            fr.setPower(0);
+            br.setPower(0);
+            fl.setPower(0);
+            bl.setPower(0);
         }
 
         if (direction == "right") {
-            RF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            RB.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LB.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            RF.setTargetPosition(-Math.round(inches * YcountsPerInch));
-            RB.setTargetPosition(Math.round(inches * YcountsPerInch));
-            LF.setTargetPosition(-Math.round(inches * YcountsPerInch));
-            LB.setTargetPosition(Math.round(inches * YcountsPerInch));
+            fr.setTargetPosition(-Math.round(inches * YcountsPerInch));
+            br.setTargetPosition(Math.round(inches * YcountsPerInch));
+            fl.setTargetPosition(-Math.round(inches * YcountsPerInch));
+            bl.setTargetPosition(Math.round(inches * YcountsPerInch));
 
-            RF.setPower(speed);
-            RB.setPower(speed);
-            LF.setPower(speed);
-            LB.setPower(speed);
+            fr.setPower(speed);
+            br.setPower(speed);
+            fl.setPower(speed);
+            bl.setPower(speed);
 
-            while (RF.isBusy() && RB.isBusy() && LF.isBusy() && LB.isBusy()) {
+            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
 
             }
-            RF.setPower(0);
-            RB.setPower(0);
-            LF.setPower(0);
-            LB.setPower(0);
+            fr.setPower(0);
+            br.setPower(0);
+            fl.setPower(0);
+            bl.setPower(0);
         }
     }
 
@@ -170,63 +170,63 @@ public class Autonomous1 extends LinearOpMode {
         int countsPerDegree = 25;
 
         if(direction == "left") {
-            RF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            RB.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LB.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            RF.setTargetPosition(Math.round(degrees * countsPerDegree));
-            RB.setTargetPosition(Math.round(degrees * countsPerDegree));
-            LF.setTargetPosition(Math.round(degrees * countsPerDegree));
-            LB.setTargetPosition(Math.round(degrees * countsPerDegree));
+            fr.setTargetPosition(Math.round(degrees * countsPerDegree));
+            br.setTargetPosition(Math.round(degrees * countsPerDegree));
+            fl.setTargetPosition(Math.round(degrees * countsPerDegree));
+            bl.setTargetPosition(Math.round(degrees * countsPerDegree));
 
-            RF.setPower(speed);
-            RB.setPower(speed);
-            LF.setPower(speed);
-            LB.setPower(speed);
+            fr.setPower(speed);
+            br.setPower(speed);
+            fl.setPower(speed);
+            bl.setPower(speed);
 
-            while (RF.isBusy() && RB.isBusy() && LF.isBusy() && LB.isBusy()) {
+            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
 
             }
-            RF.setPower(0);
-            RB.setPower(0);
-            LF.setPower(0);
-            LB.setPower(0);
+            fr.setPower(0);
+            br.setPower(0);
+            fl.setPower(0);
+            bl.setPower(0);
         }
         if(direction == "right") {
 
-            RF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            RB.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LF.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            LB.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-            RF.setTargetPosition(-Math.round(degrees * countsPerDegree));
-            RB.setTargetPosition(-Math.round(degrees * countsPerDegree));
-            LF.setTargetPosition(-Math.round(degrees * countsPerDegree));
-            LB.setTargetPosition(-Math.round(degrees * countsPerDegree));
+            fr.setTargetPosition(-Math.round(degrees * countsPerDegree));
+            br.setTargetPosition(-Math.round(degrees * countsPerDegree));
+            fl.setTargetPosition(-Math.round(degrees * countsPerDegree));
+            bl.setTargetPosition(-Math.round(degrees * countsPerDegree));
 
-            RF.setPower(speed);
-            RB.setPower(speed);
-            LF.setPower(speed);
-            LB.setPower(speed);
+            fr.setPower(speed);
+            br.setPower(speed);
+            fl.setPower(speed);
+            bl.setPower(speed);
 
-            while (RF.isBusy() && RB.isBusy() && LF.isBusy() && LB.isBusy()) {
+            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
 
             }
-            RF.setPower(0);
-            RB.setPower(0);
-            LF.setPower(0);
-            LB.setPower(0);
+            fr.setPower(0);
+            br.setPower(0);
+            fl.setPower(0);
+            bl.setPower(0);
         }
     }
 
