@@ -19,6 +19,8 @@ Puckup extends OpMode {
     DcMotor fr;
     DcMotor bl;
     DcMotor br;
+    DcMotor lf;
+    DcMotor rf;
     Servo clamp;
 
     // Declare OpMode members.
@@ -39,6 +41,8 @@ Puckup extends OpMode {
         fr = hardwareMap.dcMotor.get("front right");
         bl = hardwareMap.dcMotor.get("back left");
         br = hardwareMap.dcMotor.get("back right");
+        lf = hardwareMap.dcMotor.get("left flywheel");
+        rf = hardwareMap.dcMotor.get("right flywheel");
         clamp = hardwareMap.servo.get("clamp");
 
         //LeftRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -85,6 +89,14 @@ Puckup extends OpMode {
             clamp.setPosition(-1);
         } else {
             clamp.setPosition(0);
+        }
+
+        if (gamepad2.left_trigger) {
+            lf.setPower(1);
+            rf.setPower(-1);
+        } else (gamepad2.right_trigger) {
+            lf.setPower(-1);
+            rf.setPower(1);
         }
 
         //if(gamepad1.x) {
