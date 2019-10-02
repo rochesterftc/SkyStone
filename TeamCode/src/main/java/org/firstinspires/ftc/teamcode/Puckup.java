@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by Rochesterftc10303 on 10/4/2018.
+ * Created by Rochestefrtc10303 on 10/4/2018.
  */
 
 @TeleOp(name="Sponsor Demo",group="Master")
