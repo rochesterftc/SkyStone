@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by George on 10/11/2018.
@@ -17,8 +18,7 @@ public class TeleOpTest1 extends OpMode {
     DcMotor br;
     DcMotor fl;
     DcMotor bl;
-    DcMotor rp;
-    DcMotor lp;
+    Servo foundPull;
 
     public void init() {
 
@@ -26,8 +26,7 @@ public class TeleOpTest1 extends OpMode {
         br = hardwareMap.dcMotor.get("right back");
         fl = hardwareMap.dcMotor.get("left front");
         bl = hardwareMap.dcMotor.get("left back");
-        rp = hardwareMap.dcMotor.get("right puller");
-        lp = hardwareMap.dcMotor.get("left puller");
+        foundPull = hardwareMap.servo.get("foundation puller");
     }
 
     public void loop() {
@@ -53,13 +52,8 @@ public class TeleOpTest1 extends OpMode {
             br.setPower(-y + x - z);
         }
 
-        if (gamepad2.right_bumper) {
-            rp.setPower(1);
-            lp.setPower(-1);
-        }
-        if (gamepad2.left_bumper) {
-            rp.setPower(-1);
-            lp.setPower(1);
+        if (gamepad1.a) {
+            foundPull.setPosition(.5);
         }
     }
 }
