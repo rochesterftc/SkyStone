@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by Rochestefrtc10303 on 10/4/2018.
  */
 
-@TeleOp(name="Sponsor Demo",group="Master")
+@TeleOp(name="Puckup",group="Master")
 
 public class
 Puckup extends OpMode {
@@ -91,10 +91,10 @@ Puckup extends OpMode {
             clamp.setPosition(0);
         }
 
-        if (gamepad2.left_trigger) {
+        if (gamepad2.left_trigger > 0.1) {
             lf.setPower(1);
             rf.setPower(-1);
-        } else (gamepad2.right_trigger) {
+        } else if (gamepad2.right_trigger > 0.1) {
             lf.setPower(-1);
             rf.setPower(1);
         }
