@@ -55,5 +55,8 @@ public class TeleOpTest1 extends OpMode {
         if (gamepad1.a) {
             foundPull.setPosition(.5);
         }
+        if (gamepad1.b) {
+            foundPull.setPosition(0);
+        }
     }
 }
