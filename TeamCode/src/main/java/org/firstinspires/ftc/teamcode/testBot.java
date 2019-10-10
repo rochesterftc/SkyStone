@@ -21,8 +21,8 @@ testBot extends OpMode {
     DcMotor bl;
     DcMotor br;
     Servo clamp;
-    boolean clampChanged = false;
-    boolean on = false;
+    boolean clampChanged;
+    boolean on;
 
     // Declare OpMode members.
     private boolean helloThereFound;      // Sound file present flag
@@ -43,6 +43,8 @@ testBot extends OpMode {
         bl = hardwareMap.dcMotor.get("back left");
         br = hardwareMap.dcMotor.get("back right");
         clamp = hardwareMap.servo.get("clamp");
+        clampChanged = false;
+        on = false;
 
         //LeftRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //RightRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -70,7 +72,7 @@ testBot extends OpMode {
         Holonomic Drive:
         Gamepad 1 left and right sticks control the robot main movement, holding down a moves 5x slower
          */
-        if (gamepad1.a) {
+        if (gamepad1.right_bumper) {
             fl.setPower((-y - x + z) / 5);
             bl.setPower((-y + x + z) / 5);
             fr.setPower((-y - x - z) / 5);
