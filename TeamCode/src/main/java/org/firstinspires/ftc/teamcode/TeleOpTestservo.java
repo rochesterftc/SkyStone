@@ -57,10 +57,10 @@ public class TeleOpTestservo extends OpMode {
         }
 
         if (gamepad1.a) {
-            foundPull.setPosition(.5);
+            foundPull.setPosition(.8);
         }
         if (gamepad1.b) {
-            foundPull.setPosition(0);
+            foundPull.setPosition(.3);
         }
 
         if (gamepad1.x) {
@@ -76,5 +76,7 @@ public class TeleOpTestservo extends OpMode {
         if (gamepad1.left_bumper) {
             grablift.setPosition(0);
         }
+
+
     }
 }
