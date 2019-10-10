@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by George on 10/11/2018.
  */
 
-@TeleOp(name ="Dual Stick Tank Drive",group="Competition")
+@TeleOp(name ="Mecanum",group="Competition")
 
 
 public class TeleOpTest1 extends OpMode {
@@ -22,10 +22,10 @@ public class TeleOpTest1 extends OpMode {
 
     public void init() {
 
-        fr = hardwareMap.dcMotor.get("right front");
-        br = hardwareMap.dcMotor.get("right back");
-        fl = hardwareMap.dcMotor.get("left front");
-        bl = hardwareMap.dcMotor.get("left back");
+        fr = hardwareMap.dcMotor.get("front left");
+        br = hardwareMap.dcMotor.get("front right");
+        fl = hardwareMap.dcMotor.get("back left");
+        bl = hardwareMap.dcMotor.get("back right");
         foundPull = hardwareMap.servo.get("foundation puller");
     }
 
