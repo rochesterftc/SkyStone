@@ -236,6 +236,8 @@ public class CVTest extends LinearOpMode {
 
         waitForStart();
 
+        targetsSkyStone.activate();
+
         while(opModeIsActive()) {
 
             if(opModeTime) {
@@ -243,7 +245,7 @@ public class CVTest extends LinearOpMode {
                 boolean robotInPos = false;
 
 
-                while (!robotInPos) {
+                while (!robotInPos && opModeIsActive()) {
 
                     // check all the trackable targets to see which one (if any) is visible.
                     targetVisible = false;
@@ -259,8 +261,12 @@ public class CVTest extends LinearOpMode {
                                 lastLocation = robotLocationTransform;
                             }
                             break;
+                        } else {
+
+                            targetVisible = false;
+
                         }
-                    }
+                   }
 
                     // Provide feedback as to where the robot is located (if we know).
                     if (targetVisible) {
@@ -269,20 +275,27 @@ public class CVTest extends LinearOpMode {
                         telemetry.addData("Pos (in)", "{X, Y, Z} = %.1f, %.1f, %.1f",
                                 translation.get(0) / mmPerInch, translation.get(1) / mmPerInch, translation.get(2) / mmPerInch);
 
+                        float x = translation.get(1); //positive: target is to the right, negative: target is to the left
+                        float y = translation.get(0);
+                        float z = translation.get(2);
+
                         // express the rotation of the robot in degrees.
                         Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                         telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
-                        while (translation.get(0) != 0) {
+                       // while (translation.get(0) != 0) {
 
-                            if (translation.get(0) > 0) {
+                            if (x > 0) {
+                                telemetry.addData ("Movement","Right");
+                                telemetry.update();
                                 fl.setPower(-0.5);
                                 fr.setPower(-0.5);
                                 bl.setPower(0.5);
                                 br.setPower(0.5);
 
-                            } else if (translation.get(0) < 0){
-
+                            } else if (x < 0){
+                                telemetry.addData ("Movement","Left");
+                                telemetry.update();
                                 fl.setPower(0.5);
                                 fr.setPower(0.5);
                                 bl.setPower(-0.5);
@@ -291,20 +304,22 @@ public class CVTest extends LinearOpMode {
                             }
 
 
-                        }
+                        //}
 
+                    }
+                    else {
+                        telemetry.addData("Visible Target", "none");
+
+                        //Stop robot if no target found
                         fl.setPower(0);
                         fr.setPower(0);
                         bl.setPower(0);
                         br.setPower(0);
 
                     }
-                    else {
-                        telemetry.addData("Visible Target", "none");
-                    }
                     telemetry.update();
 
-                }
+                } //while robot not in position
 
                 opModeTime = false;
             }else {
