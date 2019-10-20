@@ -20,6 +20,7 @@ testBot extends OpMode {
     DcMotor fr;
     DcMotor bl;
     DcMotor br;
+    DcMotor arm;
     Servo clamp;
     boolean clampChanged;
     boolean on;
@@ -42,6 +43,8 @@ testBot extends OpMode {
         fr = hardwareMap.dcMotor.get("front right");
         bl = hardwareMap.dcMotor.get("back left");
         br = hardwareMap.dcMotor.get("back right");
+        arm = hardwareMap.dcMotor.get("arm");
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         clamp = hardwareMap.servo.get("clamp");
         clampChanged = false;
         on = false;
@@ -84,17 +87,19 @@ testBot extends OpMode {
             br.setPower(-y + x - z);
         }
 
-        /*if (gamepad1.left_bumper) {
+        if (gamepad1.left_bumper) {
             clamp.setPosition(1);
         } else {
             clamp.setPosition(0);
-        }*/
+        }
 
-        if(gamepad1.a && !clampChanged) {
+        arm.setPower(gamepad1.right_stick_y);
+
+        /*if(gamepad1.a && !clampChanged) {
             clamp.setPosition(on ? 1 : 0);
             on = !on;
             clampChanged = true;
-        } else if(!gamepad1.a) clampChanged = false;
+        } else if(!gamepad1.a) clampChanged = false; */
 
         //if(gamepad1.x) {
         //    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, helloThereID);
