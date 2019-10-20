@@ -21,9 +21,11 @@ testBot extends OpMode {
     DcMotor bl;
     DcMotor br;
     DcMotor arm;
+    CRServo wrist;
     Servo clamp;
     boolean clampChanged;
     boolean on;
+    double wristPower;
 
     // Declare OpMode members.
     private boolean helloThereFound;      // Sound file present flag
@@ -45,15 +47,16 @@ testBot extends OpMode {
         br = hardwareMap.dcMotor.get("back right");
         arm = hardwareMap.dcMotor.get("arm");
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        wrist = hardwareMap.crservo.get("wrist");
         clamp = hardwareMap.servo.get("clamp");
         clampChanged = false;
         on = false;
 
-        //LeftRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //RightRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        //RightRL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //LeftRL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // Don't remember if next line is needed.  I believe setTargetPosition is inited to zero so probably not needed
+        arm.setTargetPosition(0);
+        arm.setPower(0.7); //set to the max speed you want the arm to move at
 
         // Display sound status
         telemetry.addData("hellothere resource",   helloThereFound ?   "Found" : "NOT found\n Add hellothere.wav to /src/main/res/raw" );
@@ -77,13 +80,13 @@ testBot extends OpMode {
          */
         if (gamepad1.right_bumper) {
             fl.setPower((-y - x + z) / 5);
-            bl.setPower((-y + x + z) / 5);
-            fr.setPower((-y - x - z) / 5);
+            fr.setPower((-y + x + z) / 5);
+            bl.setPower((-y - x - z) / 5);
             br.setPower((-y + x - z) / 5);
         } else {
             fl.setPower(-y - x + z);
-            bl.setPower(-y + x + z);
-            fr.setPower(-y - x - z);
+            fr.setPower(-y + x + z);
+            bl.setPower(-y - x - z);
             br.setPower(-y + x - z);
         }
 
@@ -93,7 +96,18 @@ testBot extends OpMode {
             clamp.setPosition(0);
         }
 
-        arm.setPower(gamepad1.right_stick_y);
+        //arm.setPower(-0.125 * gamepad1.right_stick_y);
+
+        wristPower = gamepad1.left_trigger - gamepad1.right_trigger;
+        wrist.setPower(wristPower);
+
+        float targetPosition = gamepad1.right_stick_y;
+        int intTargetPosition = (int) targetPosition * 200;
+
+        arm.setTargetPosition(arm.getCurrentPosition()+(intTargetPosition));
+
+        arm.setPower(.7);
+
 
         /*if(gamepad1.a && !clampChanged) {
             clamp.setPosition(on ? 1 : 0);
