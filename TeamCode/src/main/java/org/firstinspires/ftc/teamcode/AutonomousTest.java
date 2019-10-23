@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by George on 9/27/2019.
  */
-@Autonomous(name = "Autonomous 1", group = "Competition")
+@Autonomous(name = "Autonomous Test", group = "Testing")
 
-public class Autonomous1 extends LinearOpMode {
+public class AutonomousTest extends LinearOpMode {
 
     DcMotor fr;
     DcMotor fl;

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -20,7 +21,8 @@ public class TeleOpTestservo extends OpMode {
     DcMotor bl;
     Servo foundPull;
     Servo grabber;
-    Servo grablift;
+    CRServo grabturn;
+   // DcMotor grablift;
 
     public void init() {
 
@@ -28,9 +30,11 @@ public class TeleOpTestservo extends OpMode {
         br = hardwareMap.dcMotor.get("front right");
         fl = hardwareMap.dcMotor.get("back left");
         bl = hardwareMap.dcMotor.get("back right");
+     //   grablift = hardwareMap.dcMotor.get("grab lift");
         foundPull = hardwareMap.servo.get("foundation puller");
         grabber = hardwareMap.servo.get("grabber");
-        grablift = hardwareMap.servo.get("grab lift");
+        grabturn = hardwareMap.crservo.get("grab turn");
+
     }
 
     public void loop() {
@@ -55,28 +59,34 @@ public class TeleOpTestservo extends OpMode {
             fr.setPower(-y - x - z);
             br.setPower(-y + x - z);
         }
+        if (gamepad2.right_trigger > 0) {
+            grabturn.setPower(gamepad2.right_trigger);
+        }
+        if (gamepad2.left_trigger > 0) {
+            grabturn.setPower(gamepad2.left_trigger);
+        }
+       /* if (gamepad2.dpad_down) {
+            grablift.;
 
-        if (gamepad1.a) {
-            foundPull.setPosition(.8);
-        }
-        if (gamepad1.b) {
-            foundPull.setPosition(.3);
-        }
+            if (gamepad2.dpad_up) {
+                grablift
+            }
+*/
+            if (gamepad1.a) {
+                foundPull.setPosition(.9);
+            }
+            if (gamepad1.b) {
+                foundPull.setPosition(.2);
+            }
 
-        if (gamepad1.x) {
-            grabber.setPosition(1);
-        }
-        if (gamepad1.y) {
-            grabber.setPosition(0);
-        }
-
-        if (gamepad1.right_bumper) {
-            grablift.setPosition(1);
-        }
-        if (gamepad1.left_bumper) {
-            grablift.setPosition(0);
-        }
+            if (gamepad2.x) {
+                grabber.setPosition(1);
+            }
+            if (gamepad2.y) {
+                grabber.setPosition(0);
+            }
 
 
+        }
     }
-}
+
