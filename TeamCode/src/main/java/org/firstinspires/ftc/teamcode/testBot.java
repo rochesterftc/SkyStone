@@ -90,7 +90,7 @@ testBot extends OpMode {
             clamp.setPosition(0);
         }*/
 
-        if(gamepad1.a && !clampChanged) {
+       if(gamepad1.a && !clampChanged) {
             clamp.setPosition(on ? 1 : 0);
             on = !on;
             clampChanged = true;

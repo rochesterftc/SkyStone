@@ -24,224 +24,143 @@ public class BlueFoundPark extends LinearOpMode {
         br = hardwareMap.dcMotor.get("back right");
         bl = hardwareMap.dcMotor.get("back left");
 
+        fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         waitForStart();
 
         //foundation = 34.5 by 18.5
 
-        driveXY (1, 1, "forward");
-        /*
+
         driveXY (30, 1, "forward");
         //clamp foundation
         driveXY (30, 1, "backward");
-        driveXY (30, 1, "right");
-        driveXY (40, 1, "forward"):
-        driveXY (30, 1, "left");
+        driveXY (18, 1, "right");
+        driveXY (40, 1, "forward");
+        driveXY (18, 1, "left");
         driveXY (10, 1, "backward");
 
         driveXY (4, 1, "forward");
-        turn (90, 1, "right");
-        driveXY (48, 1, "forward");
-         */
-
+        driveXY (40, 1, "right");
     }
 
     public void driveXY(float inches, double speed, String direction) {
 
         //1120 counts per rotation
-        //8 inches per rotation
-        //countsPerInch counts per inch
+        //15.25 inches per rotation
+        //73.5 countsPerInch counts per X inch
 
-        float XcountsPerInch = 1120;
-        float YcountsPerInch = 1120;
+        //10 inches per rotation
+        //112 counts per X inch
+
+        float XcountsPerInch = 73.5f;
+        float YcountsPerInch = 112f;
+
+        fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
         if (direction == "forward") {
-            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-
-            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
             fr.setTargetPosition(Math.round(inches * XcountsPerInch));
             br.setTargetPosition(Math.round(inches * XcountsPerInch));
             fl.setTargetPosition(-Math.round(inches * XcountsPerInch));
             bl.setTargetPosition(-Math.round(inches * XcountsPerInch));
-
-            fr.setPower(speed);
-            br.setPower(speed);
-            fl.setPower(speed);
-            bl.setPower(speed);
-
-            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
-
-            }
-            fr.setPower(0);
-            br.setPower(0);
-            fl.setPower(0);
-            bl.setPower(0);
         }
-
         if (direction == "backward") {
-            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-
-            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
             fr.setTargetPosition(-Math.round(inches * XcountsPerInch));
             br.setTargetPosition(-Math.round(inches * XcountsPerInch));
             fl.setTargetPosition(Math.round(inches * XcountsPerInch));
             bl.setTargetPosition(Math.round(inches * XcountsPerInch));
-
-            fr.setPower(speed);
-            br.setPower(speed);
-            fl.setPower(speed);
-            bl.setPower(speed);
-
-            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
-
-            }
-            fr.setPower(0);
-            br.setPower(0);
-            fl.setPower(0);
-            bl.setPower(0);
         }
-
         if (direction == "left") {
-            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-
-            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
             fr.setTargetPosition(Math.round(inches * YcountsPerInch));
             br.setTargetPosition(-Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(Math.round(inches * YcountsPerInch));
             bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
-
-            fr.setPower(speed);
-            br.setPower(speed);
-            fl.setPower(speed);
-            bl.setPower(speed);
-
-            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
-
-            }
-            fr.setPower(0);
-            br.setPower(0);
-            fl.setPower(0);
-            bl.setPower(0);
         }
-
         if (direction == "right") {
-            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-
-            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
             fr.setTargetPosition(-Math.round(inches * YcountsPerInch));
             br.setTargetPosition(Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(-Math.round(inches * YcountsPerInch));
             bl.setTargetPosition(Math.round(inches * YcountsPerInch));
-
-            fr.setPower(speed);
-            br.setPower(speed);
-            fl.setPower(speed);
-            bl.setPower(speed);
-
-            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
-
-            }
-            fr.setPower(0);
-            br.setPower(0);
-            fl.setPower(0);
-            bl.setPower(0);
         }
+
+        fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fr.setPower(speed);
+        br.setPower(speed);
+        fl.setPower(speed);
+        bl.setPower(speed);
+
+        while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
+
+        }
+
+        fr.setPower(0);
+        br.setPower(0);
+        fl.setPower(0);
+        bl.setPower(0);
+
+        fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
     }
 
     public void turn(int degrees, double speed, String direction) {
 
         //1120 counts per rotation
-        //60 degrees per rotation
-        //countsPerDegree66 counts per degree
+        //24 degrees per rotation
+        //46.7 countsPerDegree counts per degree
 
-        int countsPerDegree = 25;
+        float countsPerDegree = 46.7f;
+
+        fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
         if(direction == "left") {
-            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-
-            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
             fr.setTargetPosition(Math.round(degrees * countsPerDegree));
             br.setTargetPosition(Math.round(degrees * countsPerDegree));
             fl.setTargetPosition(Math.round(degrees * countsPerDegree));
             bl.setTargetPosition(Math.round(degrees * countsPerDegree));
-
-            fr.setPower(speed);
-            br.setPower(speed);
-            fl.setPower(speed);
-            bl.setPower(speed);
-
-            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
-
-            }
-            fr.setPower(0);
-            br.setPower(0);
-            fl.setPower(0);
-            bl.setPower(0);
         }
         if(direction == "right") {
-
-            fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            br.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-            bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
-
-            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
             fr.setTargetPosition(-Math.round(degrees * countsPerDegree));
             br.setTargetPosition(-Math.round(degrees * countsPerDegree));
             fl.setTargetPosition(-Math.round(degrees * countsPerDegree));
             bl.setTargetPosition(-Math.round(degrees * countsPerDegree));
-
-            fr.setPower(speed);
-            br.setPower(speed);
-            fl.setPower(speed);
-            bl.setPower(speed);
-
-            while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
-
-            }
-            fr.setPower(0);
-            br.setPower(0);
-            fl.setPower(0);
-            bl.setPower(0);
         }
+
+        fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        br.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        fl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        bl.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        fr.setPower(speed);
+        br.setPower(speed);
+        fl.setPower(speed);
+        bl.setPower(speed);
+
+        while (fr.isBusy() && br.isBusy() && fl.isBusy() && bl.isBusy()) {
+
+        }
+        fr.setPower(0);
+        br.setPower(0);
+        fl.setPower(0);
+        bl.setPower(0);
+
+        fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        br.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
     }
 
 /*    public void lift (float inches, double speed, String direction) {
@@ -254,7 +173,7 @@ public class BlueFoundPark extends LinearOpMode {
         if (direction == "lift") {
             lift.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             lift.setTargetPosition(Math.round(299*inches));
 
@@ -271,7 +190,7 @@ public class BlueFoundPark extends LinearOpMode {
         if (direction == "drop") {
             lift.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            lift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             lift.setTargetPosition(-Math.round(299*inches));
 
