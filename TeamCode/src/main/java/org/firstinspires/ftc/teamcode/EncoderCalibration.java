@@ -1,23 +1,22 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Created by George on 9/27/2019.
  */
-@Autonomous(name = "Blue Foundation Park", group = "Competition")
+@TeleOp(name = "Encoder Calibration", group = "Testing")
 
-public class BlueFoundPark extends LinearOpMode {
+public class EncoderCalibration extends OpMode {
 
     DcMotor fr;
     DcMotor fl;
     DcMotor br;
     DcMotor bl;
 
-    @Override
-    public void runOpMode() {
+    public void init() {
 
         fr = hardwareMap.dcMotor.get("front right");
         fl = hardwareMap.dcMotor.get("front left");
@@ -28,20 +27,20 @@ public class BlueFoundPark extends LinearOpMode {
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 
-        waitForStart();
+    public void loop() {
 
-        //foundation = 34.5 by 18.5
+        if(gamepad1.a) {
+            driveXY(1, 1, "forward");
+        }
 
-
-        driveXY (30, 1, "forward");
-        //clamp foundation
-        driveXY (30, 1, "backward");
-        driveXY (18, 1, "right");
-        driveXY (10, 1, "backward");
-
-        driveXY (4, 1, "forward");
-        driveXY (40, 1, "right");
+        if (gamepad1.b) {
+            driveXY(1, 1, "right");
+        }
+        if (gamepad1.x) {
+            turn(1, 1, "right");
+        }
     }
 
     public void driveXY(float inches, double speed, String direction) {
@@ -53,8 +52,8 @@ public class BlueFoundPark extends LinearOpMode {
         //10 inches per rotation
         //112 counts per X inch
 
-        float XcountsPerInch = 73.5f;
-        float YcountsPerInch = 112f;
+        float XcountsPerInch = 1120;
+        float YcountsPerInch = 1120;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -117,7 +116,7 @@ public class BlueFoundPark extends LinearOpMode {
         //24 degrees per rotation
         //46.7 countsPerDegree counts per degree
 
-        float countsPerDegree = 46.7f;
+        float countsPerDegree = 1120;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);

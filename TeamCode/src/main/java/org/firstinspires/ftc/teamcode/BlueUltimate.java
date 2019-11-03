@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -8,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
  * Created by George on 9/27/2019.
  */
 @Autonomous(name = "Blue Ultimate", group = "Competition")
-
+@Disabled
 public class BlueUltimate extends LinearOpMode {
 
     DcMotor fr;

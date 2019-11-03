@@ -9,16 +9,15 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by George on 10/11/2018.
  */
 
-@TeleOp(name ="Tele-Op Test",group="Testing")
+@TeleOp(name ="Mecanum",group="Competition")
 
 
-public class TeleOpTest1 extends OpMode {
+public class MecanumComp extends OpMode {
 
     DcMotor fr;
     DcMotor br;
     DcMotor fl;
     DcMotor bl;
-    DcMotor arm;
     Servo foundPull;
 
     public void init() {
@@ -27,11 +26,7 @@ public class TeleOpTest1 extends OpMode {
         br = hardwareMap.dcMotor.get("front right");
         fl = hardwareMap.dcMotor.get("back left");
         bl = hardwareMap.dcMotor.get("back right");
-        arm = hardwareMap.dcMotor.get("arm");
         foundPull = hardwareMap.servo.get("foundation puller");
-
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
     }
 
     public void loop() {
@@ -55,38 +50,6 @@ public class TeleOpTest1 extends OpMode {
             bl.setPower(-y + x + z);
             fr.setPower(-y - x - z);
             br.setPower(-y + x - z);
-        }
-
-        /*
-        //calculate what the next encoder value should be for the arm
-        int armPos = arm.getCurrentPosition();
-        int nextPos = Math.round(gamepad2.right_stick_y * 50);
-        arm.setTargetPosition(armPos+nextPos);
-
-        //move arm to the next encoder value
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        arm.setPower(.75);
-        while (arm.isBusy()) {}
-        arm.setPower(0);
-        */
-
-        if (gamepad2.dpad_up) {
-            arm.setTargetPosition(300);
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(1);
-            while (arm.isBusy()) {}
-            arm.setPower(0);
-            arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
-        }
-
-        if (gamepad2.dpad_down) {
-            arm.setTargetPosition(100);
-            arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            arm.setPower(-1);
-            while (arm.isBusy()) {}
-            arm.setPower(0);
-            arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
         }
 
         if (gamepad1.a) {
