@@ -51,11 +51,11 @@ CompetitionTeleOp extends OpMode {
         clampChanged = false;
         on = false;
 
-        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        /*arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Don't remember if next line is needed.  I believe setTargetPosition is inited to zero so probably not needed
         arm.setTargetPosition(0);
-        arm.setPower(0.7); //set to the max speed you want the arm to move at
+        arm.setPower(0.7); //set to the max speed you want the arm to move at*/
 
         // Display sound status
         telemetry.addData("hellothere resource",   helloThereFound ?   "Found" : "NOT found\n Add hellothere.wav to /src/main/res/raw" );
@@ -70,8 +70,8 @@ CompetitionTeleOp extends OpMode {
 
         //floats to streamline drive code
         float x = gamepad1.left_stick_x;
-        float z = -gamepad1.left_stick_y;
-        float y = gamepad1.right_stick_x;
+        float z = gamepad1.right_stick_x;
+        float y = -gamepad1.left_stick_y;
 
         /*
         Holonomic Drive:
@@ -89,7 +89,7 @@ CompetitionTeleOp extends OpMode {
             br.setPower(-y + x - z);
         }
 
-        arm.setPower(gamepad1.right_stick_y);
+        arm.setPower(-gamepad1.right_stick_y);
 
         wristPower = gamepad1.left_trigger - gamepad1.right_trigger;
         wrist.setPower(wristPower);
@@ -109,7 +109,6 @@ CompetitionTeleOp extends OpMode {
             on = !on;
             clampChanged = true;
         } else if(!gamepad1.a && clampChanged) clampChanged = false;
-
         telemetry.update();
     }
 }
