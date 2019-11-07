@@ -23,10 +23,21 @@ CompetitionTeleOp extends OpMode {
     DcMotor arm;
     CRServo wrist;
     Servo clamp;
-    boolean clampChanged;
-    boolean on;
+    Servo lock;
+    Servo foundationLeft;
+    Servo foundationRight;
+    int slowModeModifier = 5;
     double wristPower;
-
+    boolean clampButtonPushed;
+    boolean clampOn;
+    boolean slowButtonPushed;
+    boolean slowMode;
+    boolean lockButtonPushed;
+    boolean lockOn;
+    boolean foundationButtonPushed;
+    boolean foundationOn;
+    boolean stoneArmButtonPushed;
+    boolean stoneArmOn;
     // Declare OpMode members.
     private boolean helloThereFound;      // Sound file present flag
 
@@ -48,8 +59,13 @@ CompetitionTeleOp extends OpMode {
         arm = hardwareMap.dcMotor.get("arm");
         wrist = hardwareMap.crservo.get("wrist");
         clamp = hardwareMap.servo.get("clamp");
-        clampChanged = false;
-        on = false;
+        lock = hardwareMap.servo.get("lock");
+        foundationLeft = hardwareMap.servo.get("foundation left");
+        foundationRight = hardwareMap.servo.get("foundation right");
+        clampButtonPushed = false;
+        clampOn = false;
+        slowButtonPushed = false;
+        slowMode = false;
 
         /*arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -77,16 +93,25 @@ CompetitionTeleOp extends OpMode {
         Holonomic Drive:
         Gamepad 1 left and right sticks control the robot main movement, holding down a moves 5x slower
          */
-        if (gamepad1.right_bumper) {
-            fl.setPower((-y - x + z) / 5);
-            fr.setPower((-y + x + z) / 5);
-            bl.setPower((-y - x - z) / 5);
-            br.setPower((-y + x - z) / 5);
+
+        if(gamepad1.a && !slowButtonPushed) {
+            slowMode = !slowMode;
+            slowButtonPushed = true;
+        } else if(!gamepad1.a && slowButtonPushed) slowButtonPushed = false;
+
+        if (slowMode) {
+            fl.setPower((-y - x + z) / slowModeModifier);
+            bl.setPower((-y + x + z) / slowModeModifier);
+            fr.setPower((-y - x - z) / slowModeModifier);
+            br.setPower((-y + x - z) / slowModeModifier);
+            telemetry.addData("Slow Mode","On with factor of "+slowModeModifier);
         } else {
             fl.setPower(-y - x + z);
             fr.setPower(-y + x + z);
             bl.setPower(-y - x - z);
             br.setPower(-y + x - z);
+            telemetry.addData("Slow Mode","Off");
+
         }
 
         arm.setPower(-gamepad1.right_stick_y);
@@ -104,11 +129,35 @@ CompetitionTeleOp extends OpMode {
             arm.setPower(-0.7);
         } */
 
-        if(gamepad1.a && !clampChanged) {
-            clamp.setPosition((on ? 1 : 0));
-            on = !on;
-            clampChanged = true;
-        } else if(!gamepad1.a && clampChanged) clampChanged = false;
+        //Clamp control
+               if(gamepad2.a && !clampButtonPushed) {
+            clamp.setPosition((clampOn ? 1 : 0));
+           clampOn = !clampOn;
+           clampButtonPushed = true;
+        } else if(!gamepad2.a && clampButtonPushed) clampButtonPushed = false;
+
+        //lock control
+        if(gamepad2.b && !lockButtonPushed) {
+            lock.setPosition((lockOn ? 0 : 0.125));
+            lockOn = !lockOn;
+            lockButtonPushed = true;
+        } else if(!gamepad2.a && lockButtonPushed) lockButtonPushed = false;
+
+        //foundation control
+        if(gamepad2.x && !foundationButtonPushed) {
+            foundationLeft.setPosition((foundationOn ? 1 : 0));
+            foundationRight.setPosition((foundationOn ? 0 : 1));
+            foundationOn = !foundationOn;
+            foundationButtonPushed = true;
+        } else if(!gamepad2.a && foundationButtonPushed) foundationButtonPushed = false;
+
+        //lock control
+        if(gamepad2.y && !stoneArmButtonPushed) {
+            lock.setPosition((stoneArmOn ? 0 : 1));
+            stoneArmOn = !stoneArmOn;
+            stoneArmButtonPushed = true;
+        } else if(!gamepad2.a && stoneArmButtonPushed) stoneArmButtonPushed = false;
+
         telemetry.update();
     }
 }
