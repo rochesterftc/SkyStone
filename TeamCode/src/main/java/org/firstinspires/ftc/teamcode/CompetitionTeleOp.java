@@ -26,6 +26,7 @@ CompetitionTeleOp extends OpMode {
     Servo lock;
     Servo foundationLeft;
     Servo foundationRight;
+    Servo stoneArm;
     int slowModeModifier = 5;
     double wristPower;
     boolean clampButtonPushed;
@@ -62,6 +63,7 @@ CompetitionTeleOp extends OpMode {
         lock = hardwareMap.servo.get("lock");
         foundationLeft = hardwareMap.servo.get("foundation left");
         foundationRight = hardwareMap.servo.get("foundation right");
+        stoneArm = hardwareMap.servo.get("stone arm");
         clampButtonPushed = false;
         clampOn = false;
         slowButtonPushed = false;
@@ -87,7 +89,7 @@ CompetitionTeleOp extends OpMode {
         //floats to streamline drive code
         float x = gamepad1.left_stick_x;
         float z = gamepad1.right_stick_x;
-        float y = -gamepad1.left_stick_y;
+        float y = gamepad1.left_stick_y;
 
         /*
         Holonomic Drive:
@@ -100,23 +102,23 @@ CompetitionTeleOp extends OpMode {
         } else if(!gamepad1.a && slowButtonPushed) slowButtonPushed = false;
 
         if (slowMode) {
-            fl.setPower((-y - x + z) / slowModeModifier);
-            bl.setPower((-y + x + z) / slowModeModifier);
+            fl.setPower((y - x - z) / slowModeModifier);
             fr.setPower((-y - x - z) / slowModeModifier);
+            bl.setPower((y + x - z) / slowModeModifier);
             br.setPower((-y + x - z) / slowModeModifier);
             telemetry.addData("Slow Mode","On with factor of "+slowModeModifier);
         } else {
-            fl.setPower(-y - x + z);
-            fr.setPower(-y + x + z);
-            bl.setPower(-y - x - z);
+            fl.setPower(y - x - z);
+            fr.setPower(-y - x - z);
+            bl.setPower(y + x - z);
             br.setPower(-y + x - z);
             telemetry.addData("Slow Mode","Off");
 
         }
 
-        arm.setPower(-gamepad1.right_stick_y);
+        arm.setPower(-gamepad2.right_stick_y);
 
-        wristPower = gamepad1.left_trigger - gamepad1.right_trigger;
+        wristPower = gamepad2.left_trigger - gamepad2.right_trigger;
         wrist.setPower(wristPower);
 
         /*float targetPosition = gamepad1.right_stick_y;
@@ -138,25 +140,27 @@ CompetitionTeleOp extends OpMode {
 
         //lock control
         if(gamepad2.b && !lockButtonPushed) {
-            lock.setPosition((lockOn ? 0 : 0.125));
+            lock.setPosition((lockOn ? 0 : 0.0625));
             lockOn = !lockOn;
             lockButtonPushed = true;
-        } else if(!gamepad2.a && lockButtonPushed) lockButtonPushed = false;
+        } else if(!gamepad2.b && lockButtonPushed) lockButtonPushed = false;
 
         //foundation control
         if(gamepad2.x && !foundationButtonPushed) {
-            foundationLeft.setPosition((foundationOn ? 1 : 0));
-            foundationRight.setPosition((foundationOn ? 0 : 1));
+            foundationLeft.setPosition((foundationOn ? 0.9 : 0.4));
+            foundationRight.setPosition((foundationOn ? 0 : 0.5));
             foundationOn = !foundationOn;
             foundationButtonPushed = true;
-        } else if(!gamepad2.a && foundationButtonPushed) foundationButtonPushed = false;
+        } else if(!gamepad2.x && foundationButtonPushed) foundationButtonPushed = false;
+        telemetry.addData("Foundation Left",foundationLeft.getPosition());
+        telemetry.addData("Foundation Right",foundationRight.getPosition());
 
-        //lock control
+        //Stone Arm control
         if(gamepad2.y && !stoneArmButtonPushed) {
-            lock.setPosition((stoneArmOn ? 0 : 1));
+            stoneArm.setPosition((stoneArmOn ? 0 : 1));
             stoneArmOn = !stoneArmOn;
             stoneArmButtonPushed = true;
-        } else if(!gamepad2.a && stoneArmButtonPushed) stoneArmButtonPushed = false;
+        } else if(!gamepad2.y && stoneArmButtonPushed) stoneArmButtonPushed = false;
 
         telemetry.update();
     }
