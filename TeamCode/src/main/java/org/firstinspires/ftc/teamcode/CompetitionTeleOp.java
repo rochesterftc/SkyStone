@@ -115,10 +115,12 @@ CompetitionTeleOp extends OpMode {
             telemetry.addData("Slow Mode","Off");
 
         }
+        float armPower = -gamepad2.left_stick_y;
 
-        arm.setPower(-gamepad2.right_stick_y);
 
-        wristPower = gamepad2.left_trigger - gamepad2.right_trigger;
+        if (armPower < 0) armPower = armPower/2;
+        arm.setPower(armPower);
+      wristPower = gamepad2.right_trigger - gamepad2.left_trigger;
         wrist.setPower(wristPower);
 
         /*float targetPosition = gamepad1.right_stick_y;
