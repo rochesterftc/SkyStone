@@ -19,7 +19,9 @@ public class TeleOpTest1 extends OpMode {
     DcMotor fl;
     DcMotor bl;
     DcMotor arm;
-    Servo foundPull;
+    Servo foundr;
+    Servo foundl;
+    Servo armLock;
 
     public void init() {
 
@@ -28,7 +30,9 @@ public class TeleOpTest1 extends OpMode {
         fl = hardwareMap.dcMotor.get("back left");
         bl = hardwareMap.dcMotor.get("back right");
         arm = hardwareMap.dcMotor.get("arm");
-        foundPull = hardwareMap.servo.get("foundation puller");
+        foundr = hardwareMap.servo.get("foundation right");
+        foundl = hardwareMap.servo.get("foundation left");
+        armLock = hardwareMap.servo.get("arm lock");
 
         arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -55,6 +59,25 @@ public class TeleOpTest1 extends OpMode {
             bl.setPower(-y + x + z);
             fr.setPower(-y - x - z);
             br.setPower(-y + x - z);
+        }
+
+        if (gamepad2.a) {
+            arm.setPower(.25);
+        }
+        if (gamepad2.b) {
+            arm.setPower(.5);
+        }
+        if (gamepad2.x) {
+            arm.setPower(.75);
+        }
+        if (gamepad2.y) {
+            arm.setPower(1);
+        }
+        if (gamepad2.right_bumper) {
+            arm.setPower(0);
+        }
+        if (gamepad2.left_bumper) {
+            armLock.setPosition(.175);
         }
 
         /*
@@ -90,10 +113,12 @@ public class TeleOpTest1 extends OpMode {
         }
 
         if (gamepad1.a) {
-            foundPull.setPosition(.5);
+            foundr.setPosition(1);
+            foundl.setPosition(0);
         }
         if (gamepad1.b) {
-            foundPull.setPosition(0);
+            foundr.setPosition(0);
+            foundl.setPosition(1);
         }
     }
 }

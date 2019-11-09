@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by George on 9/27/2019.
@@ -15,7 +16,10 @@ public class AutonomousTest extends LinearOpMode {
     DcMotor fl;
     DcMotor br;
     DcMotor bl;
-
+    DcMotor arm;
+    Servo foundr;
+    Servo foundl;
+    Servo armLock;
 
     @Override
     public void runOpMode() {
@@ -24,10 +28,21 @@ public class AutonomousTest extends LinearOpMode {
         fl = hardwareMap.dcMotor.get("front left");
         br = hardwareMap.dcMotor.get("back right");
         bl = hardwareMap.dcMotor.get("back left");
+        arm = hardwareMap.dcMotor.get("arm");
+        foundr = hardwareMap.servo.get("foundation right");
+        foundl = hardwareMap.servo.get("foundation left");
+        armLock = hardwareMap.servo.get("arm lock");
 
         waitForStart();
 
-
+        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        arm.setPower(.75);
+        armLock.setPosition(.175);
+        arm.getCurrentPosition();
+        if (arm.getCurrentPosition() >150) {
+            arm.setPower(0);
+            arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        }
 
     }
 

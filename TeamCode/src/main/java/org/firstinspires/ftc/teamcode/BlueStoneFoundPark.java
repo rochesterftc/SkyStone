@@ -2,22 +2,27 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by George on 9/27/2019.
  */
-@Autonomous(name = "Blue Foundation Park", group = "Competition")
+@Autonomous(name = "Blue Stone Foundation Park", group = "Competition")
 
-public class BlueFoundPark extends LinearOpMode {
+public class BlueStoneFoundPark extends LinearOpMode {
 
     DcMotor fr;
     DcMotor fl;
     DcMotor br;
     DcMotor bl;
+    DcMotor arm;
+    CRServo wrist;
+    Servo clamp;
     Servo foundr;
     Servo foundl;
+    Servo stone;
 
     @Override
     public void runOpMode() {
@@ -26,8 +31,13 @@ public class BlueFoundPark extends LinearOpMode {
         fl = hardwareMap.dcMotor.get("front left");
         br = hardwareMap.dcMotor.get("back right");
         bl = hardwareMap.dcMotor.get("back left");
+        arm = hardwareMap.dcMotor.get("arm");
+        wrist = hardwareMap.crservo.get("wrist");
+        clamp = hardwareMap.servo.get("clamp");
         foundr = hardwareMap.servo.get("foundation right");
         foundl = hardwareMap.servo.get("foundation left");
+        stone = hardwareMap.servo.get("stone arm");
+
 
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -38,9 +48,23 @@ public class BlueFoundPark extends LinearOpMode {
 
         //foundation = 34.5 by 18.5
 
-
-        driveXY (30, 1, "backward");
+        driveXY(27, 1, "right");
         sleep(100);
+        stone.setPosition(.5);
+        sleep(100);
+        driveXY(25, 1, "left");
+        sleep(100);
+        stone.setPosition(0);
+        sleep(100);
+        driveXY(18, .25, "backward");
+        driveXY(13.5f, .25, "right");
+        driveXY(40, 1, "forward");
+        driveXY(4, 1, "backward");
+        driveXY(20, 1, "left");
+        driveXY(27, 1, "forward");
+        turn(90, 1, "left");
+        driveXY (30, 1, "backward");
+        sleep(100);sleep(100);
         foundr.setPosition(0);
         foundl.setPosition(0);
         sleep(100);
@@ -86,13 +110,13 @@ public class BlueFoundPark extends LinearOpMode {
             fl.setTargetPosition(Math.round(inches * XcountsPerInch));
             bl.setTargetPosition(Math.round(inches * XcountsPerInch));
         }
-        if (direction == "right") {
+        if (direction == "left") {
             fr.setTargetPosition(Math.round(inches * YcountsPerInch));
             br.setTargetPosition(-Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(Math.round(inches * YcountsPerInch));
             bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
         }
-        if (direction == "left") {
+        if (direction == "right") {
             fr.setTargetPosition(-Math.round(inches * YcountsPerInch));
             br.setTargetPosition(Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(-Math.round(inches * YcountsPerInch));
