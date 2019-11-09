@@ -2,22 +2,27 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by George on 9/27/2019.
  */
-@Autonomous(name = "Blue Foundation Park", group = "Competition")
+@Autonomous(name = "Blue Grab Stone Foundation Park", group = "Competition")
 
-public class BlueFoundPark extends LinearOpMode {
+public class BlueGrabStoneFoundPark extends LinearOpMode {
 
     DcMotor fr;
     DcMotor fl;
     DcMotor br;
     DcMotor bl;
+    DcMotor arm;
+    CRServo wrist;
+    Servo clamp;
     Servo foundr;
     Servo foundl;
+    Servo stone;
 
     @Override
     public void runOpMode() {
@@ -26,8 +31,13 @@ public class BlueFoundPark extends LinearOpMode {
         fl = hardwareMap.dcMotor.get("front left");
         br = hardwareMap.dcMotor.get("back right");
         bl = hardwareMap.dcMotor.get("back left");
+        arm = hardwareMap.dcMotor.get("arm");
+        wrist = hardwareMap.crservo.get("wrist");
+        clamp = hardwareMap.servo.get("clamp");
         foundr = hardwareMap.servo.get("foundation right");
         foundl = hardwareMap.servo.get("foundation left");
+        stone = hardwareMap.servo.get("stone arm");
+
 
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -38,17 +48,35 @@ public class BlueFoundPark extends LinearOpMode {
 
         //foundation = 34.5 by 18.5
 
-
+        driveXY(27, 1, "right");
+        sleep(100);
+        stone.setPosition(.5);
+        sleep(100);
+        driveXY(25, 1, "left");
+        sleep(100);
+        stone.setPosition(0);
+        sleep(100);
+        driveXY(18, .25, "backward");
+        driveXY(13.5f, .25, "right");
+        arm(1, 1,  "up");
+        wrist.setPower(1);
+        sleep(700);
+        wrist.setPower(0);
+        arm(1, 1, "down");
+        driveXY(6, 1, "forward");
+        clamp.setPosition(1);
+        arm(1, 1, "up");
+        driveXY(36, 1, "forward");
+        driveXY(4, 1, "backward");
+        driveXY(20, 1, "left");
+        driveXY(27, 1, "forward");
+        turn(90, 1, "left");
         driveXY (30, 1, "backward");
-        sleep(100);
-        foundr.setPosition(0);
-        foundl.setPosition(0);
-        sleep(100);
-        driveXY (25, 1, "forward");
-        sleep(100);
         foundr.setPosition(1);
         foundl.setPosition(1);
-        sleep(100);
+        driveXY (30, 1, "forward");
+        foundr.setPosition(0);
+        foundl.setPosition(0);
         driveXY (25, 1, "left");
         driveXY (40, 1, "backward");
         driveXY(25, 1, "right");
@@ -86,13 +114,13 @@ public class BlueFoundPark extends LinearOpMode {
             fl.setTargetPosition(Math.round(inches * XcountsPerInch));
             bl.setTargetPosition(Math.round(inches * XcountsPerInch));
         }
-        if (direction == "right") {
+        if (direction == "left") {
             fr.setTargetPosition(Math.round(inches * YcountsPerInch));
             br.setTargetPosition(-Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(Math.round(inches * YcountsPerInch));
             bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
         }
-        if (direction == "left") {
+        if (direction == "right") {
             fr.setTargetPosition(-Math.round(inches * YcountsPerInch));
             br.setTargetPosition(Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(-Math.round(inches * YcountsPerInch));
@@ -174,45 +202,33 @@ public class BlueFoundPark extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
     }
 
-/*    public void lift (float inches, double speed, String direction) {
+    public void arm(int locks, double speed, String direction) {
+
         //1120 counts per rotation
-        //3 1/4 inches per rotation
-        //344.6 counts per inch
+        // degrees per rotation
+        // countsPerLock counts per degree
 
-        float lCountsPerInch = 140;
+        float countsPerLock = 1260;
 
-        if (direction == "lift") {
-            lift.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            lift.setTargetPosition(Math.round(299*inches));
-
-            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            lift.setPower(speed);
-
-            while (lift.isBusy()) {
-
-            }
-            lift.setPower(0);
+        if(direction == "down") {
+            arm.setTargetPosition(Math.round(locks * countsPerLock));
+        }
+        if(direction == "up") {
+            arm.setTargetPosition(-Math.round(locks * countsPerLock));
         }
 
-        if (direction == "drop") {
-            lift.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setPower(speed);
 
-            lift.setTargetPosition(-Math.round(299*inches));
+        while (arm.isBusy()) {
 
-            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-            lift.setPower(speed);
-
-            while (lift.isBusy()) {
-
-            }
-            lift.setPower(0);
         }
-    } */
+        arm.setPower(0);
+
+        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
+    }
+
 }

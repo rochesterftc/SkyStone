@@ -1,73 +1,59 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by George on 9/27/2019.
  */
-@Autonomous(name = "Blue Foundation Park", group = "Competition")
+@TeleOp(name = "Encoder Calibration", group = "Testing")
 
-public class BlueFoundPark extends LinearOpMode {
+public class EncoderCalibration extends OpMode {
 
     DcMotor fr;
     DcMotor fl;
     DcMotor br;
     DcMotor bl;
-    Servo foundr;
-    Servo foundl;
 
-    @Override
-    public void runOpMode() {
+    public void init() {
 
         fr = hardwareMap.dcMotor.get("front right");
         fl = hardwareMap.dcMotor.get("front left");
         br = hardwareMap.dcMotor.get("back right");
         bl = hardwareMap.dcMotor.get("back left");
-        foundr = hardwareMap.servo.get("foundation right");
-        foundl = hardwareMap.servo.get("foundation left");
 
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
 
-        waitForStart();
+    public void loop() {
 
-        //foundation = 34.5 by 18.5
+        if(gamepad1.a) {
+            driveXY(1, 1, "forward");
+        }
 
-
-        driveXY (30, 1, "backward");
-        sleep(100);
-        foundr.setPosition(0);
-        foundl.setPosition(0);
-        sleep(100);
-        driveXY (25, 1, "forward");
-        sleep(100);
-        foundr.setPosition(1);
-        foundl.setPosition(1);
-        sleep(100);
-        driveXY (25, 1, "left");
-        driveXY (40, 1, "backward");
-        driveXY(25, 1, "right");
-        driveXY(18, 1, "forward");
-        driveXY (4, 1, "backward");
-        driveXY (48, 1, "left");
+        if (gamepad1.b) {
+            driveXY(1, 1, "right");
+        }
+        if (gamepad1.x) {
+            turn(1, 1, "right");
+        }
     }
 
     public void driveXY(float inches, double speed, String direction) {
 
         //1120 counts per rotation
-        //13 inches per rotation
-        //86 countsPerInch counts per X inch
+        //15.25 inches per rotation
+        //73.5 countsPerInch counts per X inch
 
-        //8 inches per rotation
-        //140 counts per Y inch
+        //10 inches per rotation
+        //112 counts per X inch
 
-        float XcountsPerInch = 86f;
-        float YcountsPerInch = 140f;
+        float XcountsPerInch = 1120;
+        float YcountsPerInch = 1120;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -86,13 +72,13 @@ public class BlueFoundPark extends LinearOpMode {
             fl.setTargetPosition(Math.round(inches * XcountsPerInch));
             bl.setTargetPosition(Math.round(inches * XcountsPerInch));
         }
-        if (direction == "right") {
+        if (direction == "left") {
             fr.setTargetPosition(Math.round(inches * YcountsPerInch));
             br.setTargetPosition(-Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(Math.round(inches * YcountsPerInch));
             bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
         }
-        if (direction == "left") {
+        if (direction == "right") {
             fr.setTargetPosition(-Math.round(inches * YcountsPerInch));
             br.setTargetPosition(Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(-Math.round(inches * YcountsPerInch));
@@ -127,10 +113,10 @@ public class BlueFoundPark extends LinearOpMode {
     public void turn(int degrees, double speed, String direction) {
 
         //1120 counts per rotation
-        //60 degrees per rotation
-        //18.6 countsPerDegree counts per degree
+        //24 degrees per rotation
+        //46.7 countsPerDegree counts per degree
 
-        float countsPerDegree = 18.666f;
+        float countsPerDegree = 1120;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);

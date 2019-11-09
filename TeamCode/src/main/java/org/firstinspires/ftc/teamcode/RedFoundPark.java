@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by George on 9/27/2019.
  */
-@Autonomous(name = "Blue Foundation Park", group = "Competition")
+@Autonomous(name = "Red Foundation Park", group = "Competition")
 
-public class BlueFoundPark extends LinearOpMode {
+public class RedFoundPark extends LinearOpMode {
 
     DcMotor fr;
     DcMotor fl;
@@ -40,21 +40,17 @@ public class BlueFoundPark extends LinearOpMode {
 
 
         driveXY (30, 1, "backward");
-        sleep(100);
-        foundr.setPosition(0);
-        foundl.setPosition(0);
-        sleep(100);
-        driveXY (25, 1, "forward");
-        sleep(100);
         foundr.setPosition(1);
+        foundl.setPosition(0);
+        driveXY (30, 1, "forward");
+        foundr.setPosition(0);
         foundl.setPosition(1);
-        sleep(100);
-        driveXY (25, 1, "left");
+        driveXY (25, 1, "right");
         driveXY (40, 1, "backward");
-        driveXY(25, 1, "right");
+        driveXY(25, 1, "left");
         driveXY(18, 1, "forward");
         driveXY (4, 1, "backward");
-        driveXY (48, 1, "left");
+        driveXY (48, 1, "right");
     }
 
     public void driveXY(float inches, double speed, String direction) {
@@ -64,10 +60,10 @@ public class BlueFoundPark extends LinearOpMode {
         //86 countsPerInch counts per X inch
 
         //8 inches per rotation
-        //140 counts per Y inch
+        //140 counts per X inch
 
-        float XcountsPerInch = 86f;
-        float YcountsPerInch = 140f;
+        float XcountsPerInch = 86;
+        float YcountsPerInch = 140;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -86,13 +82,13 @@ public class BlueFoundPark extends LinearOpMode {
             fl.setTargetPosition(Math.round(inches * XcountsPerInch));
             bl.setTargetPosition(Math.round(inches * XcountsPerInch));
         }
-        if (direction == "right") {
+        if (direction == "left") {
             fr.setTargetPosition(Math.round(inches * YcountsPerInch));
             br.setTargetPosition(-Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(Math.round(inches * YcountsPerInch));
             bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
         }
-        if (direction == "left") {
+        if (direction == "right") {
             fr.setTargetPosition(-Math.round(inches * YcountsPerInch));
             br.setTargetPosition(Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(-Math.round(inches * YcountsPerInch));
@@ -128,7 +124,7 @@ public class BlueFoundPark extends LinearOpMode {
 
         //1120 counts per rotation
         //60 degrees per rotation
-        //18.6 countsPerDegree counts per degree
+        //18.666 countsPerDegree counts per degree
 
         float countsPerDegree = 18.666f;
 
