@@ -130,7 +130,7 @@ public class PushbotAutoDriveByEncoder_Linear extends LinearOpMode {
      */
     public void encoderDrive(double speed,
                              double leftInches, double rightInches,
-                             double timeoutS) {
+                              double timeoutS) {
         int newLeftTarget;
         int newRightTarget;
 

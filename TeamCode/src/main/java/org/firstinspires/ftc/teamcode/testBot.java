@@ -21,9 +21,12 @@ testBot extends OpMode {
     DcMotor fr;
     DcMotor bl;
     DcMotor br;
+    DcMotor arm;
+    CRServo wrist;
     Servo clamp;
     boolean clampChanged;
     boolean on;
+    double wristPower;
 
     // Declare OpMode members.
     private boolean helloThereFound;      // Sound file present flag
@@ -43,15 +46,17 @@ testBot extends OpMode {
         fr = hardwareMap.dcMotor.get("front right");
         bl = hardwareMap.dcMotor.get("back left");
         br = hardwareMap.dcMotor.get("back right");
+        arm = hardwareMap.dcMotor.get("arm");
+        wrist = hardwareMap.crservo.get("wrist");
         clamp = hardwareMap.servo.get("clamp");
         clampChanged = false;
         on = false;
 
-        //LeftRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        //RightRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        //RightRL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        //LeftRL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // Don't remember if next line is needed.  I believe setTargetPosition is inited to zero so probably not needed
+        arm.setTargetPosition(0);
+        arm.setPower(0.7); //set to the max speed you want the arm to move at
 
         // Display sound status
         telemetry.addData("hellothere resource",   helloThereFound ?   "Found" : "NOT found\n Add hellothere.wav to /src/main/res/raw" );
@@ -75,34 +80,36 @@ testBot extends OpMode {
          */
         if (gamepad1.right_bumper) {
             fl.setPower((-y - x + z) / 5);
-            bl.setPower((-y + x + z) / 5);
-            fr.setPower((-y - x - z) / 5);
+            fr.setPower((-y + x + z) / 5);
+            bl.setPower((-y - x - z) / 5);
             br.setPower((-y + x - z) / 5);
         } else {
             fl.setPower(-y - x + z);
-            bl.setPower(-y + x + z);
-            fr.setPower(-y - x - z);
+            fr.setPower(-y + x + z);
+            bl.setPower(-y - x - z);
             br.setPower(-y + x - z);
         }
 
-        /*if (gamepad1.left_bumper) {
-            clamp.setPosition(1);
-        } else {
-            clamp.setPosition(0);
-        }*/
+        arm.setPower(gamepad1.right_stick_y);
 
-       if(gamepad1.a && !clampChanged) {
-            clamp.setPosition(on ? 1 : 0);
+        wristPower = gamepad1.left_trigger - gamepad1.right_trigger;
+        wrist.setPower(wristPower);
+
+        /*float targetPosition = gamepad1.right_stick_y;
+        int intTargetPosition = (int) targetPosition * 200;
+
+        arm.setTargetPosition(arm.getCurrentPosition()+(intTargetPosition));
+        if (gamepad1.right_stick_y > 0) {
+            arm.setPower(.7);
+        } else if (gamepad1.right_stick_y < 0) {
+            arm.setPower(-0.7);
+        } */
+
+        if(gamepad1.a && !clampChanged) {
+            clamp.setPosition((on ? 1 : 0));
             on = !on;
             clampChanged = true;
-        } else if(!gamepad1.a) clampChanged = false;
-
-        //if(gamepad1.x) {
-        //    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, helloThereID);
-        //}
-        //if(gamepad2.x) {
-        //    SoundPlayer.getInstance().startPlaying(hardwareMap.appContext, helloThereID);
-        //}
+        } else if(!gamepad1.a && clampChanged) clampChanged = false;
 
         telemetry.update();
     }
