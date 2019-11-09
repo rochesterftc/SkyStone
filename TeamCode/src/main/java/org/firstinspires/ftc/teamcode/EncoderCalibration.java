@@ -41,6 +41,36 @@ public class EncoderCalibration extends OpMode {
         if (gamepad1.x) {
             turn(1, 1, "right");
         }
+        if (gamepad1.left_bumper) {
+            fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            fr.setPower(1);
+            br.setPower(1);
+            fl.setPower(-1);
+            bl.setPower(-1);
+            telemetry.addData("FR", fr.getCurrentPosition());
+            telemetry.addData("BR", br.getCurrentPosition());
+            telemetry.addData("FL", fl.getCurrentPosition());
+            telemetry.addData("BL", bl.getCurrentPosition());
+            telemetry.update();
+        }
+        if (gamepad1.right_bumper) {
+            fr.setPower(0);
+            br.setPower(0);
+            fl.setPower(0);
+            bl.setPower(0);
+            telemetry.addData("FR2", fr.getCurrentPosition());
+            telemetry.addData("BR2", br.getCurrentPosition());
+            telemetry.addData("FL2", fl.getCurrentPosition());
+            telemetry.addData("BL2", bl.getCurrentPosition());
+            telemetry.update();
+            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        }
     }
 
     public void driveXY(float inches, double speed, String direction) {
