@@ -28,13 +28,12 @@ CompetitionTeleOp extends OpMode {
     Servo foundationRight;
     Servo stoneArm;
     int slowModeModifier = 5;
+    double wristSpeed = 0.5;
     double wristPower;
     boolean clampButtonPushed;
     boolean clampOn;
     boolean slowButtonPushed;
     boolean slowMode;
-    boolean lockButtonPushed;
-    boolean lockOn;
     boolean foundationButtonPushed;
     boolean foundationOn;
     boolean stoneArmButtonPushed;
@@ -121,7 +120,7 @@ CompetitionTeleOp extends OpMode {
         if (armPower < 0) armPower = armPower/2;
         arm.setPower(armPower);
       wristPower = gamepad2.right_trigger - gamepad2.left_trigger;
-        wrist.setPower(wristPower);
+        wrist.setPower(wristPower*wristSpeed);
 
         /*float targetPosition = gamepad1.right_stick_y;
         int intTargetPosition = (int) targetPosition * 200;
@@ -139,13 +138,6 @@ CompetitionTeleOp extends OpMode {
            clampOn = !clampOn;
            clampButtonPushed = true;
         } else if(!gamepad2.a && clampButtonPushed) clampButtonPushed = false;
-
-        //lock control
-        if(gamepad2.b && !lockButtonPushed) {
-            lock.setPosition((lockOn ? 0 : 0.0625));
-            lockOn = !lockOn;
-            lockButtonPushed = true;
-        } else if(!gamepad2.b && lockButtonPushed) lockButtonPushed = false;
 
         //foundation control
         if(gamepad2.x && !foundationButtonPushed) {
