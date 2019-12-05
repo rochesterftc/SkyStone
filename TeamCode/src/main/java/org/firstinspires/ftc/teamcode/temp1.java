@@ -1,89 +1,73 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by George on 9/27/2019.
  */
-@TeleOp(name = "Encoder Calibration", group = "Testing")
+@Autonomous(name = "temp1", group = "Competition")
 
-public class EncoderCalibration extends OpMode {
+public class temp1 extends LinearOpMode {
 
-    DcMotor fr;
     DcMotor fl;
-    DcMotor br;
+    DcMotor fr;
     DcMotor bl;
+    DcMotor br;
+    Servo foundr;
+    Servo foundl;
 
-    public void init() {
+    @Override
+    public void runOpMode() {
 
-        fr = hardwareMap.dcMotor.get("front right");
         fl = hardwareMap.dcMotor.get("front left");
-        br = hardwareMap.dcMotor.get("back right");
+        fr = hardwareMap.dcMotor.get("front right");
         bl = hardwareMap.dcMotor.get("back left");
+        br = hardwareMap.dcMotor.get("back right");
+        foundr = hardwareMap.servo.get("foundation right");
+        foundl = hardwareMap.servo.get("foundation left");
 
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
 
-    public void loop() {
+        waitForStart();
 
-        if(gamepad1.a) {
-            driveXY(1, 1, "forward");
-        }
-
-        if (gamepad1.b) {
-            driveXY(1, 1, "right");
-        }
-        if (gamepad1.x) {
-            turn(1, 1, "right");
-        }
-        if (gamepad1.left_bumper) {
-            fr.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            fl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            fr.setPower(1);
-            br.setPower(1);
-            fl.setPower(-1);
-            bl.setPower(-1);
-            telemetry.addData("FR", fr.getCurrentPosition());
-            telemetry.addData("BR", br.getCurrentPosition());
-            telemetry.addData("FL", fl.getCurrentPosition());
-            telemetry.addData("BL", bl.getCurrentPosition());
-            telemetry.update();
-        }
-        if (gamepad1.right_bumper) {
-            fr.setPower(0);
-            br.setPower(0);
-            fl.setPower(0);
-            bl.setPower(0);
-            telemetry.addData("FR2", fr.getCurrentPosition());
-            telemetry.addData("BR2", br.getCurrentPosition());
-            telemetry.addData("FL2", fl.getCurrentPosition());
-            telemetry.addData("BL2", bl.getCurrentPosition());
-            telemetry.update();
-            fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            fl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            bl.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        }
+        //foundation = 34.5 by 18.5
+        driveXY(15, 1, "backward");
+        driveXY(12, 1, "left");
+        driveXY (15, 1, "backward");
+        sleep(100);
+        foundr.setPosition(0);
+        foundl.setPosition(1);
+        sleep(100);
+        driveXY (25, 1, "forward");
+        sleep(100);
+        foundr.setPosition(1);
+        foundl.setPosition(0);
+        sleep(100);
+        driveXY (25, 1, "left");
+        driveXY (40, 1, "backward");
+        driveXY(25, 1, "right");
+        driveXY(18, 1, "forward");
+        driveXY (4, 1, "backward");
+        driveXY (48, 1, "left");
     }
 
     public void driveXY(float inches, double speed, String direction) {
 
         //1120 counts per rotation
-        //15.25 inches per rotation
-        //73.5 countsPerInch counts per X inch
+        //13 inches per rotation
+        //86 countsPerInch counts per X inch
 
-        //10 inches per rotation
-        //112 counts per X inch
+        //8 inches per rotation
+        //140 counts per Y inch
 
-        float XcountsPerInch = 1120;
-        float YcountsPerInch = 1120;
+        float XcountsPerInch = 86f;
+        float YcountsPerInch = 140f;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -102,13 +86,13 @@ public class EncoderCalibration extends OpMode {
             fl.setTargetPosition(Math.round(inches * XcountsPerInch));
             bl.setTargetPosition(Math.round(inches * XcountsPerInch));
         }
-        if (direction == "left") {
+        if (direction == "right") {
             fr.setTargetPosition(Math.round(inches * YcountsPerInch));
             br.setTargetPosition(-Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(Math.round(inches * YcountsPerInch));
             bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
         }
-        if (direction == "right") {
+        if (direction == "left") {
             fr.setTargetPosition(-Math.round(inches * YcountsPerInch));
             br.setTargetPosition(Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(-Math.round(inches * YcountsPerInch));
@@ -143,10 +127,10 @@ public class EncoderCalibration extends OpMode {
     public void turn(int degrees, double speed, String direction) {
 
         //1120 counts per rotation
-        //24 degrees per rotation
-        //46.7 countsPerDegree counts per degree
+        //60 degrees per rotation
+        //18.6 countsPerDegree counts per degree
 
-        float countsPerDegree = 1120;
+        float countsPerDegree = 18.666f;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);
