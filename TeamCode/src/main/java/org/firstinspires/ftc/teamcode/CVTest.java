@@ -33,7 +33,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  */
 
 @Autonomous (name="Computer Vision Test",group="REMOVE BEFORE FLIGHT")
-@Disabled
+
 public class CVTest extends LinearOpMode {
 
 
@@ -75,6 +75,7 @@ public class CVTest extends LinearOpMode {
     DcMotor fr;
     DcMotor bl;
     DcMotor br;
+    Servo stoneArm;
 
     public void move(double x, double y, double z, int time) {
 
@@ -225,6 +226,7 @@ public class CVTest extends LinearOpMode {
         fr = hardwareMap.dcMotor.get("front right");
         bl = hardwareMap.dcMotor.get("back left");
         br = hardwareMap.dcMotor.get("back right");
+        stoneArm = hardwareMap.servo.get("stone arm");
 
         // Display sound status
         telemetry.addData("hellothere", hellothereFound ? "Found" : "NOT FOUND!\n Add hellothere.wav to /src/main/res/raw");
@@ -246,6 +248,17 @@ public class CVTest extends LinearOpMode {
 
                 boolean robotInPos = false;
 
+                fl.setPower(-0.5);
+                fr.setPower(-0.5);
+                bl.setPower(0.5);
+                br.setPower(0.5);
+
+                sleep(2000);
+
+                fl.setPower(0);
+                fr.setPower(0);
+                bl.setPower(0);
+                br.setPower(0);
 
                 while (!robotInPos && opModeIsActive()) {
 
@@ -271,6 +284,12 @@ public class CVTest extends LinearOpMode {
                    }
 
                     // Provide feedback as to where the robot is located (if we know).
+
+                    fl.setPower(0.2);
+                    fr.setPower(-0.2);
+                    bl.setPower(0.2);
+                    br.setPower(-0.2);
+
                     if (targetVisible) {
                         // express position (translation) of robot in inches.
                         VectorF translation = lastLocation.getTranslation();
@@ -280,6 +299,7 @@ public class CVTest extends LinearOpMode {
                         float x = translation.get(1); //positive: target is to the right, negative: target is to the left
                         float y = translation.get(0);
                         float z = translation.get(2);
+                        float Xspeed = -0.005f * Math.abs(x);
 
                         // express the rotation of the robot in degrees.
                         Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
@@ -290,21 +310,20 @@ public class CVTest extends LinearOpMode {
                             if (x > 0) {
                                 telemetry.addData ("Movement","Right");
                                 telemetry.update();
-                                fl.setPower(-0.5);
-                                fr.setPower(-0.5);
-                                bl.setPower(0.5);
-                                br.setPower(0.5);
+                                fl.setPower(-Xspeed);
+                                fr.setPower(Xspeed);
+                                bl.setPower(-Xspeed);
+                                br.setPower(Xspeed);
 
                             } else if (x < 0){
                                 telemetry.addData ("Movement","Left");
                                 telemetry.update();
-                                fl.setPower(0.5);
-                                fr.setPower(0.5);
-                                bl.setPower(-0.5);
-                                br.setPower(-0.5);
+                                fl.setPower(Xspeed);
+                                fr.setPower(-Xspeed);
+                                bl.setPower(Xspeed);
+                                br.setPower(-Xspeed);
 
                             }
-
 
                         //}
 
@@ -313,10 +332,10 @@ public class CVTest extends LinearOpMode {
                         telemetry.addData("Visible Target", "none");
 
                         //Stop robot if no target found
-                        fl.setPower(0);
+                        /*fl.setPower(0);
                         fr.setPower(0);
                         bl.setPower(0);
-                        br.setPower(0);
+                        br.setPower(0);*/
 
                     }
                     telemetry.update();
@@ -327,6 +346,9 @@ public class CVTest extends LinearOpMode {
             }else {
                 telemetry.addData("Status", "Robot is stopped");
                 telemetry.update();
+
+
+
             }
         }
 
