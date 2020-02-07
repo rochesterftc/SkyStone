@@ -31,8 +31,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 /**
  * Created by Nathaniel on 10/9/19.
  */
-@Disabled
+
 @Autonomous (name="Computer Vision Test",group="REMOVE BEFORE FLIGHT")
+
 
 public class CVTest extends LinearOpMode {
 
