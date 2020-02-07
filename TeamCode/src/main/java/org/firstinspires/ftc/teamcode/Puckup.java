@@ -42,7 +42,7 @@ Puckup extends OpMode {
         fr = hardwareMap.dcMotor.get("front right");
         bl = hardwareMap.dcMotor.get("back left");
         br = hardwareMap.dcMotor.get("back right");
-        clamp = hardwareMap.servo.get("clamp");
+        clamp = hardwareMap.servo.get("leftClamp");
 
         //LeftRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         //RightRL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.ftccommon.SoundPlayer;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -11,6 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Created by Rochesterftc10303 on 10/4/2018.
  */
 
+@Disabled
 @TeleOp(name="Single Driver",group="Master")
 
 public class
@@ -58,7 +60,7 @@ SingleTeleOp extends OpMode {
         br = hardwareMap.dcMotor.get("back right");
         arm = hardwareMap.dcMotor.get("arm");
         wrist = hardwareMap.crservo.get("wrist");
-        clamp = hardwareMap.servo.get("clamp");
+        clamp = hardwareMap.servo.get("leftClamp");
         lock = hardwareMap.servo.get("lock");
         foundationLeft = hardwareMap.servo.get("foundation left");
         foundationRight = hardwareMap.servo.get("foundation right");

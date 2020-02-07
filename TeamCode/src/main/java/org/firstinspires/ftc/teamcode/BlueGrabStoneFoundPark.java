@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * Created by George on 9/27/2019.
  */
+@Disabled
 @Autonomous(name = "Blue Grab Stone Foundation Park", group = "Competition")
 
 public class BlueGrabStoneFoundPark extends LinearOpMode {

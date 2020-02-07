@@ -37,20 +37,21 @@ public class RedFoundPark extends LinearOpMode {
         waitForStart();
 
         //foundation = 34.5 by 18.5
-
-
-        driveXY (30, 1, "backward");
-        foundr.setPosition(1);
-        foundl.setPosition(0);
-        driveXY (30, 1, "forward");
+        driveXY(15, 1, "backward");
+        driveXY(18, 1, "left");
+        driveXY (15, 1, "backward");
+        driveXY (10, .25, "backward");
         foundr.setPosition(0);
         foundl.setPosition(1);
-        driveXY (25, 1, "right");
-        driveXY (40, 1, "backward");
-        driveXY(25, 1, "left");
-        driveXY(18, 1, "forward");
-        driveXY (4, 1, "backward");
-        driveXY (48, 1, "right");
+        sleep(2000);
+        driveXY (55, 1, "forward");
+        sleep(100);
+        foundr.setPosition(.5);
+        foundl.setPosition(0.5);
+        sleep(2000);
+        driveXY(6, 1, "forward");
+        driveXY (38, 1, "right");
+        driveXY(4, 1, "forward");
     }
 
     public void driveXY(float inches, double speed, String direction) {

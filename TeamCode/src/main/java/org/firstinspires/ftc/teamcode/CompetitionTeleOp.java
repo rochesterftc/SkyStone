@@ -22,12 +22,13 @@ CompetitionTeleOp extends OpMode {
     DcMotor br;
     DcMotor arm;
     CRServo wrist;
-    Servo clamp;
+    Servo leftClamp;
+    Servo rightClamp;
     Servo lock;
     Servo foundationLeft;
     Servo foundationRight;
     Servo stoneArm;
-    int slowModeModifier = 5;
+    int slowModeModifier = 3;
     double wristSpeed = 0.5;
     double wristPower;
     boolean clampButtonPushed;
@@ -58,7 +59,8 @@ CompetitionTeleOp extends OpMode {
         br = hardwareMap.dcMotor.get("back right");
         arm = hardwareMap.dcMotor.get("arm");
         wrist = hardwareMap.crservo.get("wrist");
-        clamp = hardwareMap.servo.get("clamp");
+        leftClamp = hardwareMap.servo.get("left clamp");
+        rightClamp = hardwareMap.servo.get("right clamp");
         lock = hardwareMap.servo.get("lock");
         foundationLeft = hardwareMap.servo.get("foundation left");
         foundationRight = hardwareMap.servo.get("foundation right");
@@ -134,7 +136,8 @@ CompetitionTeleOp extends OpMode {
 
         //Clamp control
                if(gamepad2.a && !clampButtonPushed) {
-            clamp.setPosition((clampOn ? 1 : 0));
+            leftClamp.setPosition((clampOn ? 0.7 : 1));
+            rightClamp.setPosition((clampOn ? 0.3 : 0));
            clampOn = !clampOn;
            clampButtonPushed = true;
         } else if(!gamepad2.a && clampButtonPushed) clampButtonPushed = false;

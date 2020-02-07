@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,10 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by George on 9/27/2019.
  */
-@Disabled
-@Autonomous(name = "Blue Middle Park", group = "Competition")
+@Autonomous(name = "Right Side Park", group = "Park")
 
-public class BlueMidPark extends LinearOpMode {
+public class RightSidePark extends LinearOpMode {
 
     DcMotor fr;
     DcMotor fl;
@@ -35,7 +33,7 @@ public class BlueMidPark extends LinearOpMode {
         bl = hardwareMap.dcMotor.get("back left");
         arm = hardwareMap.dcMotor.get("arm");
         wrist = hardwareMap.crservo.get("wrist");
-        clamp = hardwareMap.servo.get("leftClamp");
+        clamp = hardwareMap.servo.get("clamp");
         foundr = hardwareMap.servo.get("foundation right");
         foundl = hardwareMap.servo.get("foundation left");
         stone = hardwareMap.servo.get("stone arm");
@@ -50,8 +48,7 @@ public class BlueMidPark extends LinearOpMode {
 
         //foundation = 34.5 by 18.5
 
-        driveXY(12, 1, "right");
-        driveXY(26, 1, "forward");
+        driveXY(12, 1, "left");
     }
 
     public void driveXY(float inches, double speed, String direction) {

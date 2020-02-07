@@ -1,45 +1,40 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by George on 9/27/2019.
  */
-@Disabled
-@Autonomous(name = "Blue Middle Park", group = "Competition")
+@Autonomous(name = "Blue Foundation Park Middle", group = "Competition")
 
-public class BlueMidPark extends LinearOpMode {
+public class BlueFoundParkMiddle extends LinearOpMode {
 
-    DcMotor fr;
+    MecanumReference ref = new MecanumReference();
+
     DcMotor fl;
-    DcMotor br;
+    DcMotor fr;
     DcMotor bl;
-    DcMotor arm;
-    CRServo wrist;
-    Servo clamp;
+    DcMotor br;
     Servo foundr;
     Servo foundl;
-    Servo stone;
 
     @Override
     public void runOpMode() {
 
-        fr = hardwareMap.dcMotor.get("front right");
         fl = hardwareMap.dcMotor.get("front left");
-        br = hardwareMap.dcMotor.get("back right");
+        fr = hardwareMap.dcMotor.get("front right");
         bl = hardwareMap.dcMotor.get("back left");
-        arm = hardwareMap.dcMotor.get("arm");
-        wrist = hardwareMap.crservo.get("wrist");
-        clamp = hardwareMap.servo.get("leftClamp");
+        br = hardwareMap.dcMotor.get("back right");
         foundr = hardwareMap.servo.get("foundation right");
         foundl = hardwareMap.servo.get("foundation left");
-        stone = hardwareMap.servo.get("stone arm");
 
+        fr.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        br.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        fl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        bl.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -49,9 +44,22 @@ public class BlueMidPark extends LinearOpMode {
         waitForStart();
 
         //foundation = 34.5 by 18.5
-
+        driveXY(15, 1, "backward");
         driveXY(12, 1, "right");
-        driveXY(26, 1, "forward");
+        driveXY (15, 1, "backward");
+        driveXY (7, .25, "backward");
+        foundr.setPosition(0);
+        foundl.setPosition(1);
+        sleep(2000);
+        driveXY (52, 1, "forward");
+        sleep(100);
+        foundr.setPosition(.5);
+        foundl.setPosition(0.5);
+        sleep(2000);
+        driveXY(6, 1, "forward");
+        driveXY(24, 1, "left");
+        driveXY(30, 1, "backward");
+        driveXY (15, 1, "left");
     }
 
     public void driveXY(float inches, double speed, String direction) {
@@ -63,8 +71,8 @@ public class BlueMidPark extends LinearOpMode {
         //8 inches per rotation
         //140 counts per Y inch
 
-        float XcountsPerInch = 86f;
-        float YcountsPerInch = 140f;
+        float XcountsPerInch = ref.XcountsPerInch;
+        float YcountsPerInch = ref.YcountsPerInch;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -83,17 +91,17 @@ public class BlueMidPark extends LinearOpMode {
             fl.setTargetPosition(Math.round(inches * XcountsPerInch));
             bl.setTargetPosition(Math.round(inches * XcountsPerInch));
         }
-        if (direction == "left") {
-            fr.setTargetPosition(Math.round(inches * YcountsPerInch));
-            br.setTargetPosition(-Math.round(inches * YcountsPerInch));
-            fl.setTargetPosition(Math.round(inches * YcountsPerInch));
-            bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
-        }
         if (direction == "right") {
             fr.setTargetPosition(-Math.round(inches * YcountsPerInch));
             br.setTargetPosition(Math.round(inches * YcountsPerInch));
             fl.setTargetPosition(-Math.round(inches * YcountsPerInch));
             bl.setTargetPosition(Math.round(inches * YcountsPerInch));
+        }
+        if (direction == "left") {
+            fr.setTargetPosition(Math.round(inches * YcountsPerInch));
+            br.setTargetPosition(-Math.round(inches * YcountsPerInch));
+            fl.setTargetPosition(Math.round(inches * YcountsPerInch));
+            bl.setTargetPosition(-Math.round(inches * YcountsPerInch));
         }
 
         fr.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -127,7 +135,7 @@ public class BlueMidPark extends LinearOpMode {
         //60 degrees per rotation
         //18.6 countsPerDegree counts per degree
 
-        float countsPerDegree = 18.666f;
+        float countsPerDegree = ref.countsPerDegree;
 
         fr.setMode(DcMotor.RunMode.RESET_ENCODERS);
         br.setMode(DcMotor.RunMode.RESET_ENCODERS);
@@ -171,33 +179,45 @@ public class BlueMidPark extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
     }
 
-    public void arm(int locks, double speed, String direction) {
-
+/*    public void lift (float inches, double speed, String direction) {
         //1120 counts per rotation
-        // degrees per rotation
-        // countsPerLock counts per degree
+        //3 1/4 inches per rotation
+        //344.6 counts per inch
 
-        float countsPerLock = 1260;
+        float lCountsPerInch = 140;
 
-        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        if (direction == "lift") {
+            lift.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-        if(direction == "down") {
-            arm.setTargetPosition(Math.round(locks * countsPerLock));
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            lift.setTargetPosition(Math.round(299*inches));
+
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            lift.setPower(speed);
+
+            while (lift.isBusy()) {
+
+            }
+            lift.setPower(0);
         }
-        if(direction == "up") {
-            arm.setTargetPosition(-Math.round(locks * countsPerLock));
+
+        if (direction == "drop") {
+            lift.setMode(DcMotor.RunMode.RESET_ENCODERS);
+
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            lift.setTargetPosition(-Math.round(299*inches));
+
+            lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            lift.setPower(speed);
+
+            while (lift.isBusy()) {
+
+            }
+            lift.setPower(0);
         }
-
-        arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        arm.setPower(speed);
-
-        while (arm.isBusy()) {
-
-        }
-        arm.setPower(0);
-
-        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
-    }
-
+    } */
 }

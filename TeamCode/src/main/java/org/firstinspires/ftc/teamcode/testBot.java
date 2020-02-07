@@ -48,7 +48,7 @@ testBot extends OpMode {
         br = hardwareMap.dcMotor.get("back right");
         arm = hardwareMap.dcMotor.get("arm");
         wrist = hardwareMap.crservo.get("wrist");
-        clamp = hardwareMap.servo.get("clamp");
+        clamp = hardwareMap.servo.get("leftClamp");
         clampChanged = false;
         on = false;
 

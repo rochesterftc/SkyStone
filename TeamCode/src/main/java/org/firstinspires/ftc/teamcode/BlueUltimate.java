@@ -42,7 +42,7 @@ public class BlueUltimate extends LinearOpMode {
 
         driveXY (100, 1, "forward");
         turn (90, 1, "left");
-        //clamp foundation
+        //leftClamp foundation
         driveXY (30, 1, "backward");
         driveXY (30, 1, "right");
         driveXY (40, 1, "forward"):

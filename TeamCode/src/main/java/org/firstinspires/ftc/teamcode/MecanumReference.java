@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -47,7 +47,7 @@ public class MecanumReference {
         arm = hardwareMap.dcMotor.get("arm");
 
         wrist = hardwareMap.crservo.get("wrist");
-        clamp = hardwareMap.servo.get("clamp");
+        clamp = hardwareMap.servo.get("leftClamp");
         foundationLeft = hardwareMap.servo.get("foundation left");
         foundationRight = hardwareMap.servo.get("foundation right");
         stoneArm = hardwareMap.servo.get("stone arm");

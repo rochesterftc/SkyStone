@@ -1,12 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.ftccommon.SoundPlayer;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -34,7 +31,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
 @Disabled
 @Autonomous (name="Computer Vision Test",group="REMOVE BEFORE FLIGHT")
 
-public class CVTest extends LinearOpMode {
+public class AutoGrabStone extends LinearOpMode {
 
 
     // Declare OpMode members.
@@ -306,6 +303,8 @@ public class CVTest extends LinearOpMode {
                         telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
 
                        // while (translation.get(0) != 0) {
+
+
 
                             if (x > 0) {
                                 telemetry.addData ("Movement","Right");

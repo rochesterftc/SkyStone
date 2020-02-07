@@ -6,6 +6,7 @@ import android.graphics.Path;
 import android.view.View;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
@@ -18,6 +19,8 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 /**
  * Created by RochesterFTC11289 on 10/18/2018.
  */
+
+@Disabled
 @Autonomous(name = "Right A", group = "Competition")
 
 public class Right extends LinearOpMode {
