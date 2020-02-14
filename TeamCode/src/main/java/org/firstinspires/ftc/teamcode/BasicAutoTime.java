@@ -12,7 +12,7 @@ import static java.lang.Thread.sleep;
 @Disabled
 @Autonomous(name="Basic Auto Time",group="Competition")
 
-public class BasicAutoTime {
+public class  BasicAutoTime {
 
     DcMotor fl;
     DcMotor fr;
