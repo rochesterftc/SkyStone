@@ -138,11 +138,13 @@ public class ColorSensorTest extends LinearOpMode {
             telemetry.addData("Green", sensorColor.green());
             telemetry.addData("Blue ", sensorColor.blue());
             telemetry.addData("Hue", hsvValues[0]);
-
+/*
             while (colorSensor.alpha() > 10) {
                 telemetry.addData("Color is black", true);
             }
             telemetry.addData("Color is black", false);
+
+ */
 
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument

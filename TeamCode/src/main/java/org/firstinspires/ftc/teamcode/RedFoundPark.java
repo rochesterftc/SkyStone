@@ -18,6 +18,7 @@ public class RedFoundPark extends LinearOpMode {
     DcMotor bl;
     Servo foundr;
     Servo foundl;
+    Servo stone;
 
     @Override
     public void runOpMode() {
@@ -28,6 +29,7 @@ public class RedFoundPark extends LinearOpMode {
         bl = hardwareMap.dcMotor.get("back left");
         foundr = hardwareMap.servo.get("foundation right");
         foundl = hardwareMap.servo.get("foundation left");
+        stone = hardwareMap.servo.get("stone arm");
 
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         br.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -52,6 +54,7 @@ public class RedFoundPark extends LinearOpMode {
         driveXY(6, 1, "forward");
         driveXY (48, 1, "right");
         driveXY(4, 1, "forward");
+        stone.setPosition(1);
     }
 
     public void driveXY(float inches, double speed, String direction) {
