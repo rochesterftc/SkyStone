@@ -6,16 +6,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-
 
 /**
  * Created by Rochesterftc10303 on 10/4/2018.
  */
-@TeleOp(name="OldCompetition",group="Master")
-@Disabled
+
+@TeleOp(name="DPadCompetition",group="Master")
+
 public class
-CompetitionTeleOp extends OpMode {
+DPadCompetitionTeleOp extends OpMode {
 
     DcMotor fl;
     DcMotor fr;
@@ -30,6 +29,7 @@ CompetitionTeleOp extends OpMode {
     Servo foundationRight;
     Servo stoneArm;
     int slowModeModifier = 3;
+    int driveMode = 1;
     double wristSpeed = 0.5;
     double wristPower;
     boolean clampButtonPushed;
@@ -93,6 +93,36 @@ CompetitionTeleOp extends OpMode {
         float z = gamepad1.right_stick_x;
         float y = gamepad1.left_stick_y;
 
+        /*sets drive mode for adjusting driver orentation
+        1: Forward
+        2: Backward
+        3: Left
+        4: Right
+         */
+        if(gamepad1.dpad_up) {driveMode = 1; telemetry.addData("Drive Mode","Forward");}
+        if(gamepad1.dpad_down) {driveMode = 2;telemetry.addData("Drive Mode","Backward");}
+        if(gamepad1.dpad_left) {driveMode = 3;telemetry.addData("Drive Mode","Left");}
+        if(gamepad1.dpad_right) {driveMode = 4;telemetry.addData("Drive Mode","Right");}
+
+        //sets xyz floats to aproprate analog stick inputs based on drive mode
+        if(driveMode == 1) {
+            x = gamepad1.left_stick_x;
+            y = gamepad1.left_stick_y;
+            z = gamepad1.right_stick_x;
+        } else if (driveMode == 2){
+            x = -gamepad1.left_stick_x;
+            y = -gamepad1.left_stick_y;
+            z = gamepad1.right_stick_x;
+        } else if (driveMode == 3){
+            x = -gamepad1.left_stick_y;
+            y = gamepad1.left_stick_x;
+            z = gamepad1.right_stick_x;
+        } else if (driveMode == 4){
+            x = gamepad1.left_stick_y;
+            y = -gamepad1.left_stick_x;
+            z = gamepad1.right_stick_x;
+        }
+
         /*
         Holonomic Drive:
         Gamepad 1 left and right sticks control the robot main movement, holding down a moves 5x slower
@@ -146,7 +176,7 @@ CompetitionTeleOp extends OpMode {
         //foundation control
         if(gamepad2.x && !foundationButtonPushed) {
             foundationLeft.setPosition((foundationOn ? 0.9 : 0.4));
-            foundationRight.setPosition((foundationOn ? 0 : 0.5));
+            foundationRight.setPosition((foundationOn ? 0 : 0.4));
             foundationOn = !foundationOn;
             foundationButtonPushed = true;
         } else if(!gamepad2.x && foundationButtonPushed) foundationButtonPushed = false;
