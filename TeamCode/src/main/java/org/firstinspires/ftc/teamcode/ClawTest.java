@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class ClawTest extends OpMode {
 
    Servo leftClaw;
-   Servo rightClaw;
+    Servo rightClaw;
    boolean buttonPushed = false;
    boolean on = false;
 
