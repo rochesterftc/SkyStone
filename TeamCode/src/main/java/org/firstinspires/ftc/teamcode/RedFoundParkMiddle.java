@@ -52,7 +52,7 @@ public class RedFoundParkMiddle extends LinearOpMode {
         driveXY(6, 1, "forward");
         driveXY (24, 1, "right");
         driveXY(30, 1, "backward");
-        driveXY(15, 1, "right");
+        driveXY(25, 1, "right");
     }
 
     public void driveXY(float inches, double speed, String direction) {

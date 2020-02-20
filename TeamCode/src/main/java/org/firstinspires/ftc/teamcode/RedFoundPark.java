@@ -50,7 +50,7 @@ public class RedFoundPark extends LinearOpMode {
         foundl.setPosition(0.5);
         sleep(2000);
         driveXY(6, 1, "forward");
-        driveXY (38, 1, "right");
+        driveXY (48, 1, "right");
         driveXY(4, 1, "forward");
     }
 

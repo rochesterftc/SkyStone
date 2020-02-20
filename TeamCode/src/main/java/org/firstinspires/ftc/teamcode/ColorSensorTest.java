@@ -67,7 +67,7 @@ public class ColorSensorTest extends LinearOpMode {
 
         // sometimes it helps to multiply the raw RGB values with a scale factor
         // to amplify/attentuate the measured values.
-        final double SCALE_FACTOR = 255;
+        final double SCALE_FACTOR = 1;
 
         // get a reference to the RelativeLayout so we can change the background
         // color of the Robot Controller app to match the hue detected by the RGB sensor.
@@ -95,6 +95,11 @@ public class ColorSensorTest extends LinearOpMode {
             telemetry.addData("Green", colorSensor.green());
             telemetry.addData("Blue ", colorSensor.blue());
             telemetry.addData("Hue", hsvValues[0]);
+
+            while (colorSensor.alpha() > 10) {
+                telemetry.addData("Color is black", true);
+            }
+            telemetry.addData("Color is black", false);
 
             // change the background color to match the color detected by the RGB sensor.
             // pass a reference to the hue, saturation, and value array as an argument
