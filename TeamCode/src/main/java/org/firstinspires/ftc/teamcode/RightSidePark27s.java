@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by George on 9/27/2019.
  */
-@Autonomous(name = "Left Side Park 20s", group = "Park")
+@Autonomous(name = "Right Side Park 27s", group = "Park")
 
-public class LeftSidePark20s extends LinearOpMode {
+public class RightSidePark27s extends LinearOpMode {
 
     DcMotor fr;
     DcMotor fl;
@@ -48,8 +48,8 @@ public class LeftSidePark20s extends LinearOpMode {
 
         //foundation = 34.5 by 18.5
 
-        sleep(1000*20);
-        driveXY(12, 1, "right");
+        sleep(1000 * 27);
+        driveXY(12, 1, "left");
     }
 
     public void driveXY(float inches, double speed, String direction) {
@@ -132,13 +132,13 @@ public class LeftSidePark20s extends LinearOpMode {
         fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
         bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-        if(direction == "left") {
+        if (direction == "left") {
             fr.setTargetPosition(Math.round(degrees * countsPerDegree));
             br.setTargetPosition(Math.round(degrees * countsPerDegree));
             fl.setTargetPosition(Math.round(degrees * countsPerDegree));
             bl.setTargetPosition(Math.round(degrees * countsPerDegree));
         }
-        if(direction == "right") {
+        if (direction == "right") {
             fr.setTargetPosition(-Math.round(degrees * countsPerDegree));
             br.setTargetPosition(-Math.round(degrees * countsPerDegree));
             fl.setTargetPosition(-Math.round(degrees * countsPerDegree));
@@ -195,7 +195,8 @@ public class LeftSidePark20s extends LinearOpMode {
         }
         arm.setPower(0);
 
-        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);*/
-    }
+        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
+    }*/
 
+    }
 }

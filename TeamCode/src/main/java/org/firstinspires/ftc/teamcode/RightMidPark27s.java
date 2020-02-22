@@ -9,9 +9,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * Created by George on 9/27/2019.
  */
-@Autonomous(name = "Right Middle Park 20s", group = "Park")
+@Autonomous(name = "Right Middle Park 27s", group = "Park")
 
-public class RightMidPark20s extends LinearOpMode {
+public class RightMidPark27s extends LinearOpMode {
 
     DcMotor fr;
     DcMotor fl;
@@ -48,7 +48,7 @@ public class RightMidPark20s extends LinearOpMode {
 
         //foundation = 34.5 by 18.5
 
-        sleep(1000 * 20);
+        sleep(1000 * 27);
         driveXY(22, 1, "forward");
         driveXY(12, 1, "right");
 

@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 /**
  * Created by Rochesterftc10303 on 10/4/2018.
  */
-@TeleOp(name="OldCompetition",group="Master")
+@TeleOp(name="Old Competition",group="Master")
 @Disabled
 public class
 CompetitionTeleOp extends OpMode {
