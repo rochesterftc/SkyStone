@@ -17,12 +17,12 @@ public class RightSidePark20s extends LinearOpMode {
     DcMotor fl;
     DcMotor br;
     DcMotor bl;
-    DcMotor arm;
+    /*DcMotor arm;
     CRServo wrist;
     Servo clamp;
     Servo foundr;
     Servo foundl;
-    Servo stone;
+    Servo stone;*/
 
     @Override
     public void runOpMode() {
@@ -31,12 +31,12 @@ public class RightSidePark20s extends LinearOpMode {
         fl = hardwareMap.dcMotor.get("front left");
         br = hardwareMap.dcMotor.get("back right");
         bl = hardwareMap.dcMotor.get("back left");
-        arm = hardwareMap.dcMotor.get("arm");
+        /*arm = hardwareMap.dcMotor.get("arm");
         wrist = hardwareMap.crservo.get("wrist");
         clamp = hardwareMap.servo.get("clamp");
         foundr = hardwareMap.servo.get("foundation right");
         foundl = hardwareMap.servo.get("foundation left");
-        stone = hardwareMap.servo.get("stone arm");
+        stone = hardwareMap.servo.get("stone arm");*/
 
 
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -48,7 +48,7 @@ public class RightSidePark20s extends LinearOpMode {
 
         //foundation = 34.5 by 18.5
 
-        sleep (1000*20);
+        sleep(1000 * 20);
         driveXY(12, 1, "left");
     }
 
@@ -132,13 +132,13 @@ public class RightSidePark20s extends LinearOpMode {
         fl.setMode(DcMotor.RunMode.RESET_ENCODERS);
         bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-        if(direction == "left") {
+        if (direction == "left") {
             fr.setTargetPosition(Math.round(degrees * countsPerDegree));
             br.setTargetPosition(Math.round(degrees * countsPerDegree));
             fl.setTargetPosition(Math.round(degrees * countsPerDegree));
             bl.setTargetPosition(Math.round(degrees * countsPerDegree));
         }
-        if(direction == "right") {
+        if (direction == "right") {
             fr.setTargetPosition(-Math.round(degrees * countsPerDegree));
             br.setTargetPosition(-Math.round(degrees * countsPerDegree));
             fl.setTargetPosition(-Math.round(degrees * countsPerDegree));
@@ -177,7 +177,7 @@ public class RightSidePark20s extends LinearOpMode {
 
         float countsPerLock = 1260;
 
-        arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        /*arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
         if(direction == "down") {
             arm.setTargetPosition(Math.round(locks * countsPerLock));
@@ -196,6 +196,7 @@ public class RightSidePark20s extends LinearOpMode {
         arm.setPower(0);
 
         arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
-    }
+    }*/
 
+    }
 }

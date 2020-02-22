@@ -17,12 +17,7 @@ public class LeftMidPark extends LinearOpMode {
     DcMotor fl;
     DcMotor br;
     DcMotor bl;
-    DcMotor arm;
-    CRServo wrist;
-    Servo clamp;
-    Servo foundr;
-    Servo foundl;
-    Servo stone;
+
 
     @Override
     public void runOpMode() {
@@ -31,12 +26,6 @@ public class LeftMidPark extends LinearOpMode {
         fl = hardwareMap.dcMotor.get("front left");
         br = hardwareMap.dcMotor.get("back right");
         bl = hardwareMap.dcMotor.get("back left");
-        arm = hardwareMap.dcMotor.get("arm");
-        wrist = hardwareMap.crservo.get("wrist");
-        clamp = hardwareMap.servo.get("clamp");
-        foundr = hardwareMap.servo.get("foundation right");
-        foundl = hardwareMap.servo.get("foundation left");
-        stone = hardwareMap.servo.get("stone arm");
 
 
         fr.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -170,7 +159,7 @@ public class LeftMidPark extends LinearOpMode {
         bl.setMode(DcMotor.RunMode.RESET_ENCODERS);
     }
 
-    public void arm(int locks, double speed, String direction) {
+    /*public void arm(int locks, double speed, String direction) {
 
         //1120 counts per rotation
         // degrees per rotation
@@ -197,6 +186,6 @@ public class LeftMidPark extends LinearOpMode {
         arm.setPower(0);
 
         arm.setMode(DcMotor.RunMode.RESET_ENCODERS);
-    }
+    }*/
 
 }
