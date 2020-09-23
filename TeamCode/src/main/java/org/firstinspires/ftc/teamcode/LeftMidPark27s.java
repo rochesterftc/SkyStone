@@ -46,6 +46,7 @@ public class LeftMidPark27s extends LinearOpMode {
 
         waitForStart();
 
+
         //foundation = 34.5 by 18.5
 
         sleep(1000*27);
